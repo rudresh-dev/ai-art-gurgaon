@@ -218,7 +218,7 @@ const DrawingApp = () => {
   const uploadToSupabase = async (blob) => {
     const fileName = `generated_${Date.now()}.png`; // Unique file name
     const { data, error } = await supabase.storage
-      .from("images") // Ensure this is your bucket name
+      .from("images/gurgaon") // Ensure this is your bucket name
       .upload(fileName, blob, {
         cacheControl: "3600",
         upsert: false,
@@ -229,7 +229,14 @@ const DrawingApp = () => {
       return null;
     }
 
-    const publicURL = `https://mxyippuwkpysdexmxrbm.supabase.co/storage/v1/object/public/images/${fileName}`;
+    const publicURL = `https://mxyippuwkpysdexmxrbm.supabase.co/storage/v1/object/public/images/gurgaon/${fileName}`;
+    const { error: insertError } = await supabase
+          .from('images')
+          .insert([{ url: publicURL }]);
+
+        if (insertError) {
+          console.error('Insert error:', insertError);
+        } 
     return publicURL;
   };
 
@@ -374,10 +381,10 @@ const DrawingApp = () => {
           "Racing Through Urban Streets",
         ]);
         break;
-      case "Anime":
+      case "Animal":
         setSubPrompts([
           "In a Neon-lit Cityscape",
-          "Battle in a Fantasy World",
+          "In a Fantasy World",
           "With Futuristic Vehicles",
           "At a Lantern Festival",
           "Hero with a Magic Sword",
@@ -769,7 +776,7 @@ const DrawingApp = () => {
                         Automibile
                       </div>
                       <div
-                        onClick={() => handlePromptSelect("Anime")}
+                        onClick={() => handlePromptSelect("Animal")}
                         style={{
                           padding: "10px",
                           width: "129px",
@@ -786,7 +793,7 @@ const DrawingApp = () => {
                               : "transparent",
                         }}
                       >
-                        Anime
+                        Animal
                       </div>
                     </div>
                   </div>

@@ -28,19 +28,19 @@
   .result-image {
     background-color: transparent;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    /* box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); */
     padding: 1rem;
     aspect-ratio: 16/9;
     margin-bottom: 1rem;
-    margin-top: 40px
-    
+    margin-left: 3rem;  
   }
   
   .result-image img {
-    width: 100%;
+    width: 80%;
     background-color: #0b2a6a;
-    object-fit: cover;
+    object-fit: fill;
     border-radius: 0.25rem;
+    border-radius: 0.5rem;
   }
   
   .art-image {
@@ -50,7 +50,7 @@
     padding: 1rem;
     width: 15.333%;
     position: absolute;
-    bottom: 5%;
+    bottom: 11%;
     left: 2%;
   }
 
