@@ -1,0 +1,243 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+body{
+  background-image: url('/bg.png');
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+}
+
+
+
+
+.mainContainer{
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+background-image: url("/bg2.png");
+  /* background-color: palevioletred; */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+.canvasContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  border: none;
+}
+
+canvas{
+  border-radius: 20px;
+  border: none !important;
+  background-color: #fff !important;
+}
+
+.mainLeft{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 50px;
+  width: 70%;
+  position: relative;
+  /* background-color: brown; */
+}
+
+.brushRest{
+  width: 88%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 30px;
+  border: 1px solid #fff;
+  border-radius: 12px;
+}
+
+.downContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+.mainRight{
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  /* background-color: blue; */
+  align-items: flex-start;
+}
+
+.earserRest{
+  display: flex;
+  flex-direction: column;
+  /* background-color: blueviolet; */
+ width: 100%;
+ height: 500px;
+}
+
+
+.bothGContainer{
+  display: flex;
+  gap: 20px;
+}
+
+
+.brushButton{
+  /* background-color: #8210BC; */
+  width: 580px;
+  height: 60px;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #0F4ABA;
+
+  background: rgb(255,255,255);
+/* background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.26) 50%, rgba(255,255,255,0.3) 100%); */
+}
+
+.resetButton{
+  background-color: #8210BC;
+  width: 580px;
+  border: none;
+  border-radius: 10px;
+  border: 1px solid #fff;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  background: rgb(255,255,255);
+background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.26) 50%, rgba(255,255,255,0.3) 100%);
+}
+
+
+
+.whole-style-container{
+  width: 100%;
+  /* background-color: red; */
+  /* padding-right: 0 30px; */
+}
+
+
+.style-container{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+
+}
+.style-container button{
+  width: 250px;
+  height: 50px;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 8px;
+  font-size: 18px;
+  color: white;
+
+}
+
+
+
+
+/* sadfgrsfegrdndrnfh  */
+
+
+input[type="range"] {
+  /* removing default appearance */
+  -webkit-appearance: none;
+  appearance: none; 
+  /* creating a custom design */
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  /*  slider progress trick  */
+  overflow: hidden;
+  border-radius: 16px;
+  height: 16px;
+}
+
+/* Track: webkit browsers */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 15px;
+  background: #ccc;
+  border-radius: 16px;
+}
+
+/* Track: Mozilla Firefox */
+input[type="range"]::-moz-range-track {
+  height: 15px;
+  background: #ccc;
+  border-radius: 16px;
+}
+
+/* Thumb: webkit */
+input[type="range"]::-webkit-slider-thumb {
+  /* removing default appearance */
+  -webkit-appearance: none;
+  appearance: none; 
+  /* creating a custom design */
+  height: 15px;
+  width: 15px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 2px solid #0F4ABA;
+  /*  slider progress trick  */
+  box-shadow: -500px 0 0 500px #0F4ABA;
+}
+
+
+/* Thumb: Firefox */
+input[type="range"]::-moz-range-thumb {
+  height: 15px;
+  width: 15px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 1px solid #0F4ABA;
+  /*  slider progress trick  */
+  box-shadow: -500px 0 0 500px #0F4ABA;
+}
+
+.wrapper {
+  color: #4b4949; 
+  background: #0F4ABA;
+  max-width: 00px;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.range {
+  display: flex;
+  align-items: center;
+  max-width: 500px;
+  height: 4rem;
+  width: 80%;
+  background: #fff;
+  padding: 0px 10px;
+}
+

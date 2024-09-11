@@ -1,0 +1,116 @@
+.ui-screen {
+    /* background: linear-gradient(to bottom right, #ec4899, #8b5cf6, #6366f1); */
+    padding: 5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    max-width: 100vw;
+    margin: 80px 0px auto auto;
+    overflow: hidden;
+  }
+  
+  .content {
+    display: flex ;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 5rem;
+  }
+  
+  @media (min-width: 768px) {
+    .content {
+      flex-direction: row;
+    }
+  }
+  
+  .image-area {
+    flex-grow: 0.4;
+  }
+  
+  .result-image {
+    background-color: transparent;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 1rem;
+    aspect-ratio: 16/9;
+    margin-bottom: 1rem;
+    margin-top: 40px
+    
+  }
+  
+  .result-image img {
+    width: 100%;
+    background-color: #0b2a6a;
+    object-fit: cover;
+    border-radius: 0.25rem;
+  }
+  
+  .art-image {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 1rem;
+    width: 15.333%;
+    position: absolute;
+    bottom: 5%;
+    left: 2%;
+  }
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .art-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.25rem;
+  }
+  
+  .qr-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .qr-code {
+    background-color: white;
+    padding: 5rem;
+    border-radius: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .redraw-button {
+    background-color: white;
+    color: #8b5cf6;
+    padding: 0.5rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 1200;
+    font-size: larger;
+    width: 10vw;
+    height: 5vh;
+  }
+  
+  .redraw-button:hover {
+    background-color: #f3e8ff;
+  }
+  
+  .download-info {
+    margin-top: 1.5rem;
+    color: white;
+    text-align: center;
+  }
+  
+  .download-info h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  
+  .download-info p {
+    font-size: 0.875rem;
+    opacity: 0.8;
+  }
