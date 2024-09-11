@@ -171,7 +171,7 @@ const Result = () => {
         </div>
         <div className="qr-area">
             <div className="download-info">
-              <h2>Scan to download</h2>
+              <h2>Scan To Download</h2>
             </div>
           <div className="qr-code">
          

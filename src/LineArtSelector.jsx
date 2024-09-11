@@ -193,11 +193,11 @@ const LineArtSelector = ({ onLineArtSelect }) => {
       ],
     },
     {
-      src: "/a4.png",
+      src: "/a4.p4ng",
       text: "Animal",
       subImages: [
-        { src: "/aa3.png", icon: "/d/d1.svg", text: "Horse" },
-        { src: "/aa1.png", icon: "/d/d2.svg", text: "Tortise" },
+        { src: "/d1.svg", icon: "/dd1.svg", text: "cat" },
+        { src: "/d4.svg", icon: "/dd4.svg", text: "dog" },
         { src: "/aa2.png", icon: "/d/d3.svg", text: "Lion" },
         { src: "/aa4.png", icon: "/d/d4.svg", text: "Camel" },
       ],

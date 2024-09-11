@@ -715,7 +715,10 @@ const DrawingApp = () => {
                           handlePromptSelect("Sunset with Mountains")
                         }
                         style={{
-                          padding: "10px",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
                           height: "40px",
                           width: "129px",
                           textAlign: "center",
@@ -737,7 +740,10 @@ const DrawingApp = () => {
                       <div
                         onClick={() => handlePromptSelect("Space")}
                         style={{
-                          padding: "10px",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
                           height: "40px",
                           width: "129px",
                           border:
@@ -758,7 +764,10 @@ const DrawingApp = () => {
                       <div
                         onClick={() => handlePromptSelect("Automibile")}
                         style={{
-                          padding: "10px",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
                           height: "40px",
                           width: "129px",
                           border:
@@ -778,7 +787,10 @@ const DrawingApp = () => {
                       <div
                         onClick={() => handlePromptSelect("Animal")}
                         style={{
-                          padding: "10px",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
                           width: "129px",
                           height: "40px",
                           border:
