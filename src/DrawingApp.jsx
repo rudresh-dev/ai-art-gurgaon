@@ -383,11 +383,11 @@ const DrawingApp = () => {
         break;
       case "Animal":
         setSubPrompts([
-          "In a Neon-lit Cityscape",
-          "In a Fantasy World",
-          "With Futuristic Vehicles",
-          "At a Lantern Festival",
-          "Hero with a Magic Sword",
+          "resting under the shade of a large tree in the savanna",
+          "splashing water in a calm river with its trunk.",
+          "sprinting across the open plains in pursuit of prey.",
+          "waddling across icy terrain with its chick.",
+          "howling at the full moon in a dark forest.",
         ]);
         break;
       default:
