@@ -218,7 +218,7 @@ const LineArtSelector = ({ onLineArtSelect }) => {
         SELECT SHAPES
       </h4>
       {/* Main Image Selector */}
-      <div style={{ display: "flex", gap: "8px", marginBottom: "16px" }}>
+      <div style={{ display: "flex", gap: "14px", marginBottom: "16px" }}>
         {lineArtDivs.map((lineArt, index) => (
           <div
             key={index}
@@ -227,10 +227,12 @@ const LineArtSelector = ({ onLineArtSelect }) => {
               border:
                 activeIndex === index ? "3px solid #000" : "1px solid #fff",
               borderRadius: "8px",
-              padding: "5px 34px",
+              padding: "5px 0px",
+              textAlign:"center",
               cursor: "pointer",
               background: activeIndex === index ? "#f0f0f0" : "transparent",
               color: activeIndex === index ? "#000" : "#fff",
+              width:"125px"
             }}
           >
             <p>{lineArt.text}</p>
@@ -242,7 +244,7 @@ const LineArtSelector = ({ onLineArtSelect }) => {
       <div
         style={{
           display: "flex",
-          gap: "10px",
+          gap: "14px",
           flexDirection: "row",
           justifyContent: "center",
           alignItems: "center",
@@ -263,6 +265,7 @@ const LineArtSelector = ({ onLineArtSelect }) => {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
+                width:"125px"
               }}
             >
               {/* Show icon in div */}

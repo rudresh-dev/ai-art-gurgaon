@@ -28,26 +28,24 @@ const DrawingApp = () => {
 
   const [selectedStyle, setSelectedStyle] = useState("Fantasy Art"); // Track the selected style
 
-
-
   const handleStyleSelect = (style) => {
     setSelectedStyle(style); // Update the selected style
   };
   // Save canvas state after each drawing action
-//   const saveCanvasState = () => {
-//     const canvas = canvasRef.current;
-//     const context = canvas.getContext("2d");
-//     setCanvasState(context.getImageData(0, 0, canvas.width, canvas.height));
-//   };
+  //   const saveCanvasState = () => {
+  //     const canvas = canvasRef.current;
+  //     const context = canvas.getContext("2d");
+  //     setCanvasState(context.getImageData(0, 0, canvas.width, canvas.height));
+  //   };
 
-//   // Restore canvas state
-//   const restoreCanvasState = () => {
-//     const canvas = canvasRef.current;
-//     const context = canvas.getContext("2d");
-//     if (canvasState) {
-//       context.putImageData(canvasState, 0, 0);
-//     }
-//   };
+  //   // Restore canvas state
+  //   const restoreCanvasState = () => {
+  //     const canvas = canvasRef.current;
+  //     const context = canvas.getContext("2d");
+  //     if (canvasState) {
+  //       context.putImageData(canvasState, 0, 0);
+  //     }
+  //   };
 
   // Redraw the canvas when the position or size of any image changes
   useEffect(() => {
@@ -231,12 +229,12 @@ const DrawingApp = () => {
 
     const publicURL = `https://mxyippuwkpysdexmxrbm.supabase.co/storage/v1/object/public/images/gurgaon/${fileName}`;
     const { error: insertError } = await supabase
-          .from('images')
-          .insert([{ url: publicURL }]);
+      .from("images")
+      .insert([{ url: publicURL }]);
 
-        if (insertError) {
-          console.error('Insert error:', insertError);
-        } 
+    if (insertError) {
+      console.error("Insert error:", insertError);
+    }
     return publicURL;
   };
 
@@ -410,9 +408,9 @@ const DrawingApp = () => {
   };
 
   // Handle selecting style
-//   const handleStyleSelect = (style) => {
-//     setStyle(style);
-//   };
+  //   const handleStyleSelect = (style) => {
+  //     setStyle(style);
+  //   };
 
   // Toggle eraser mode
   const toggleEraser = () => {
@@ -567,7 +565,7 @@ const DrawingApp = () => {
                       handleTouchEndImage();
                     }}
                     width="1192"
-                    height="795"
+                    height="650"
                     style={{
                       border: "1px solid black",
                       backgroundColor: "white",
@@ -590,7 +588,8 @@ const DrawingApp = () => {
                       {eraserMode ? "Brush" : "Eraser"}
                     </button>
                     <button onClick={clearCanvas} className="resetButton">
-                      Reset
+                      <img src="/public/e-icon.svg" alt="" />
+                      <p>Reset</p>
                     </button>
                   </div>
                 </div>
@@ -637,7 +636,9 @@ const DrawingApp = () => {
                         height: "100%",
                       }}
                     >
+                       
                       <input
+                     
                         type="range"
                         min="50"
                         max="500"
@@ -906,7 +907,9 @@ const DrawingApp = () => {
                       onClick={() => handleStyleSelect("Fantasy Art")}
                       style={{
                         backgroundColor:
-                          selectedStyle === "Fantasy Art" ? "#fff" : "transparent",// Change color if selected
+                          selectedStyle === "Fantasy Art"
+                            ? "#fff"
+                            : "transparent", // Change color if selected
                         color:
                           selectedStyle === "Fantasy Art" ? "#000" : "#fff",
                         padding: "10px 20px",
@@ -924,8 +927,10 @@ const DrawingApp = () => {
                       onClick={() => handleStyleSelect("Neon Punk")}
                       style={{
                         backgroundColor:
-                          selectedStyle === "Neon Punk" ? "#fff" : "transparent",
-                        color: selectedStyle === "Neon Punk" ?  "#000" : "#fff",
+                          selectedStyle === "Neon Punk"
+                            ? "#fff"
+                            : "transparent",
+                        color: selectedStyle === "Neon Punk" ? "#000" : "#fff",
                         padding: "10px 20px",
                         border: "1px solid #ddd",
                         borderRadius: "8px",
@@ -941,9 +946,11 @@ const DrawingApp = () => {
                       onClick={() => handleStyleSelect("Hyperrealism")}
                       style={{
                         backgroundColor:
-                          selectedStyle === "Hyperrealism" ? "#fff" : "transparent",
+                          selectedStyle === "Hyperrealism"
+                            ? "#fff"
+                            : "transparent",
                         color:
-                          selectedStyle === "Hyperrealism" ?  "#000" : "#fff",
+                          selectedStyle === "Hyperrealism" ? "#000" : "#fff",
                         padding: "10px 20px",
                         border: "1px solid #ddd",
                         borderRadius: "8px",
@@ -959,7 +966,9 @@ const DrawingApp = () => {
                       onClick={() => handleStyleSelect("Comic Book")}
                       style={{
                         backgroundColor:
-                          selectedStyle === "Comic Book" ? "#fff" : "transparent",
+                          selectedStyle === "Comic Book"
+                            ? "#fff"
+                            : "transparent",
                         color: selectedStyle === "Comic Book" ? "#000" : "#fff",
                         padding: "10px 20px",
                         border: "1px solid #ddd",
@@ -1006,7 +1015,7 @@ const DrawingApp = () => {
                       color: "#0F4ABA",
                     }}
                   >
-                    {loading ? "Generating..." : "Generate Image"}
+                    {loading ? "Generating..." : "Submit"}
                   </button>
                 </div>
               </div>

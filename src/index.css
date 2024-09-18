@@ -12,7 +12,7 @@
 }
 
 body{
-  background-image: url('/bg3.png');
+  background-image: url('/bg33.png');
   background-size: cover;
   width: 100vw;
   height: 100vh;
@@ -29,7 +29,7 @@ body{
   justify-content: center;
   width: 100vw;
   height: 100vh;
-background-image: url("/bg3.png");
+background-image: url("/bg33.png");
   /* background-color: palevioletred; */
   background-position: center;
   background-repeat: no-repeat;
@@ -56,7 +56,8 @@ canvas{
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
+  padding-bottom: 50px;
   gap: 50px;
   width: 70%;
   position: relative;
@@ -120,6 +121,10 @@ canvas{
 
 .resetButton{
   background-color: #8210BC;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
   width: 580px;
   border: none;
   border-radius: 10px;
@@ -240,4 +245,17 @@ input[type="range"]::-moz-range-thumb {
   background: #fff;
   padding: 0px 10px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
