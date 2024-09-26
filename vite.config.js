@@ -8,28 +8,28 @@ export default defineConfig({
     registerType: 'autoUpdate',
     includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
     manifest: {
-      name: 'Vite PWA Project',
-      short_name: 'Vite PWA Project',
-      theme_color: '#ffffff',
+      name: 'AI Art',
+      short_name: 'AI Art',
+      theme_color: '#000',
       icons: [
           {
-              src: 'pwa-64x64.png',
+              src: '512icon.png',
               sizes: '64x64',
               type: 'image/png'
           },
           {
-              src: 'pwa-192x192.png',
+              src: '512icon.png',
               sizes: '192x192',
               type: 'image/png'
           },
           {
-              src: 'pwa-512x512.png',
+              src: '512icon.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'any'
           },
           {
-              src: 'maskable-icon-512x512.png',
+              src: '512icon.png',
               sizes: '512x512',
               type: 'image/png',
               purpose: 'maskable'
