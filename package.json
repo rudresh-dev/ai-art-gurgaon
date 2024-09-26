@@ -14,12 +14,15 @@
     "@supabase/supabase-js": "^2.45.3",
     "axios": "^1.7.7",
     "gsap": "^3.12.5",
+    "konva": "^9.3.15",
     "lucide-react": "^0.439.0",
     "qrcode.react": "^4.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-konva": "^18.2.10",
     "react-loading": "^2.0.3",
-    "react-router-dom": "^6.26.2"
+    "react-router-dom": "^6.26.2",
+    "use-image": "^1.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
