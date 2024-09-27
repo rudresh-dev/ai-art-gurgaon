@@ -32,7 +32,6 @@ const DrawingApp = () => {
     setSelectedStyle(style); // Update the selected style
   };
 
-
   // Redraw the canvas when the position or size of any image changes
   useEffect(() => {
     drawAllImages();
@@ -42,13 +41,16 @@ const DrawingApp = () => {
     updateFinalPrompt();
   }, [lineArtImages, selectedSubPrompt]);
 
-
-   // Detect screen size and set isMobileView
-   useEffect(() => {
+  // Detect screen size and set isMobileView
+  useEffect(() => {
     const checkScreenSize = () => {
       if (window.innerWidth < 768) {
         setIsMobileView(true);
-      } else {
+      } 
+      else if (window.innerWidth <= 768){
+        setIsMobileView(true);
+      } 
+      else {
         setIsMobileView(false);
       }
     };
@@ -129,7 +131,6 @@ const DrawingApp = () => {
     stopDrawing();
   };
 
-
   // Image drag and drop functionality for the image canvas (line art)
   const handleImageDragStart = (mouseX, mouseY) => {
     lineArtImages.forEach((image, index) => {
@@ -190,9 +191,8 @@ const DrawingApp = () => {
     setIsDraggingImage(false);
   };
 
-
-   // Clear both canvases
-   const clearCanvas = () => {
+  // Clear both canvases
+  const clearCanvas = () => {
     const drawingCanvas = canvasRef.current;
     const drawingContext = drawingCanvas.getContext("2d");
     const imageCanvas = imageCanvasRef.current;
@@ -205,16 +205,15 @@ const DrawingApp = () => {
     setFinalPrompt("");
   };
 
-
   // Add this function to merge both canvases
-const mergeCanvases = () => {
-  const imageCanvas = imageCanvasRef.current;
-  const drawingCanvas = canvasRef.current;
-  const drawingContext = drawingCanvas.getContext("2d");
+  const mergeCanvases = () => {
+    const imageCanvas = imageCanvasRef.current;
+    const drawingCanvas = canvasRef.current;
+    const drawingContext = drawingCanvas.getContext("2d");
 
-  // Draw the imageCanvas content onto the drawingCanvas
-  drawingContext.drawImage(imageCanvas, 0, 0);
-};
+    // Draw the imageCanvas content onto the drawingCanvas
+    drawingContext.drawImage(imageCanvas, 0, 0);
+  };
 
   // Convert canvas to Blob
   const canvasToBlob = async () => {
@@ -400,8 +399,8 @@ const mergeCanvases = () => {
     setEraserMode(!eraserMode);
   };
 
-   // Line art selection and placement
-   const handleLineArtSelect = (lineArt) => {
+  // Line art selection and placement
+  const handleLineArtSelect = (lineArt) => {
     const canvas = imageCanvasRef.current;
     const canvasWidth = canvas.width;
     const canvasHeight = canvas.height;
@@ -419,8 +418,8 @@ const mergeCanvases = () => {
     setLineArtImages([...lineArtImages, newLineArt]);
   };
 
-   // Draw all line art images on the image canvas
-   const drawAllImages = () => {
+  // Draw all line art images on the image canvas
+  const drawAllImages = () => {
     const canvas = imageCanvasRef.current;
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -500,7 +499,7 @@ const mergeCanvases = () => {
 
   return (
     <>
-      {loading && ( 
+      {loading && (
         <div>
           <video
             src="02.mp4"
@@ -513,47 +512,46 @@ const mergeCanvases = () => {
       )}
       {!loading && (
         <div style={{ display: "block" }}>
-          
-            
-            
-            {isMobileView ? (
-              <div
-                style={{
-                  width: "100vw",
-                  height: "100vh",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: "#fff",
-                  color: "#333",
-                  textAlign: "center",
-                  padding: "20px",
-                }}
-              >
-                <h2>
-                  For a better experience, please switch to a desktop view!
-                </h2>
-              </div>
-            ) : (
-              <div className="mainContainer">
+          {isMobileView ? (
+            <div
+              style={{
+                width: "100vw",
+                height: "100vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#fff",
+                color: "#333",
+                textAlign: "center",
+                padding: "20px",
+              }}
+            >
+              <h2>For a better experience, please switch to a desktop view!</h2>
+            </div>
+          ) : (
+            <div className="mainContainer">
               <div className="mainLeft">
                 <div className="canvasContainer">
-
-                <canvas
-                  ref={imageCanvasRef}
-                  width="1192"
-                  height="650"
-                  onMouseDown={(e) => handleImageDragStart(e.nativeEvent.offsetX, e.nativeEvent.offsetY)}
-                  onMouseMove={handleMouseMoveImage}
-                  onMouseUp={handleMouseUpImage}
-                  style={{
-                    position: "absolute",
-                    zIndex: 1, // Lower z-index to be below drawing
-                    top: 0,
-                    left: 76,
-                    backgroundColor:"white"
-                  }}
-                ></canvas>
+                  <canvas
+                    ref={imageCanvasRef}
+                    width="1192"
+                    height="650"
+                    onMouseDown={(e) =>
+                      handleImageDragStart(
+                        e.nativeEvent.offsetX,
+                        e.nativeEvent.offsetY
+                      )
+                    }
+                    onMouseMove={handleMouseMoveImage}
+                    onMouseUp={handleMouseUpImage}
+                    style={{
+                      position: "absolute",
+                      zIndex: 1, // Lower z-index to be below drawing
+                      top: 0,
+                      left: 76,
+                      backgroundColor: "white",
+                    }}
+                  ></canvas>
                   <canvas
                     ref={canvasRef}
                     onMouseDown={(e) => {
@@ -584,10 +582,10 @@ const mergeCanvases = () => {
                     height="650"
                     style={{
                       border: "1px solid black",
-                      zIndex:2,
-               // Transparent background
-                      backgroundColor:"transparent"
-                        // backgroundColor:"red"
+                      zIndex: 2,
+                      // Transparent background
+                      backgroundColor: "transparent",
+                      // backgroundColor:"red"
                     }}
                   ></canvas>
                 </div>
@@ -655,9 +653,7 @@ const mergeCanvases = () => {
                         height: "100%",
                       }}
                     >
-                       
                       <input
-                     
                         type="range"
                         min="50"
                         max="500"
@@ -853,10 +849,8 @@ const mergeCanvases = () => {
                                 selectedSubPrompt === subPrompt
                                   ? "1px solid #0F4ABA"
                                   : "0px solid #ccc",
-
                               borderRadius:
                                 selectedSubPrompt === subPrompt ? "7px" : "7px",
-
                               cursor: "pointer",
                               backgroundColor:
                                 selectedSubPrompt === subPrompt
@@ -877,7 +871,6 @@ const mergeCanvases = () => {
                     </div>
                   )}
                 </div>
-
 
                 <div className="whole-style-container">
                   <h2
@@ -1013,11 +1006,7 @@ const mergeCanvases = () => {
                 </div>
               </div>
             </div>
-            )}
-
-
-           
-         
+          )}
         </div>
       )}
     </>
