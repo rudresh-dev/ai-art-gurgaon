@@ -27,7 +27,7 @@ const DrawingApp = () => {
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 }); // Offset for dragging
   const [currentImageIndex, setCurrentImageIndex] = useState(null); // Track which image is being dragged or resized
   const [selectedStyle, setSelectedStyle] = useState("Fantasy Art"); // Track the selected style
-
+  const [isMobileView, setIsMobileView] = useState(false); // Detect mobile view
   const handleStyleSelect = (style) => {
     setSelectedStyle(style); // Update the selected style
   };
@@ -42,6 +42,25 @@ const DrawingApp = () => {
     updateFinalPrompt();
   }, [lineArtImages, selectedSubPrompt]);
 
+
+   // Detect screen size and set isMobileView
+   useEffect(() => {
+    const checkScreenSize = () => {
+      if (window.innerWidth < 768) {
+        setIsMobileView(true);
+      } else {
+        setIsMobileView(false);
+      }
+    };
+
+    checkScreenSize(); // Check on initial render
+
+    window.addEventListener("resize", checkScreenSize); // Listen for resize events
+
+    return () => {
+      window.removeEventListener("resize", checkScreenSize); // Cleanup listener
+    };
+  }, []);
 
   // Mouse or touch events for canvas drawing
   const startDrawing = (x, y) => {
@@ -481,7 +500,7 @@ const mergeCanvases = () => {
 
   return (
     <>
-      {loading && (
+      {loading && ( 
         <div>
           <video
             src="02.mp4"
@@ -494,10 +513,29 @@ const mergeCanvases = () => {
       )}
       {!loading && (
         <div style={{ display: "block" }}>
-          {loading ? (
-            <Loading />
-          ) : (
-            <div className="mainContainer">
+          
+            
+            
+            {isMobileView ? (
+              <div
+                style={{
+                  width: "100vw",
+                  height: "100vh",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "#fff",
+                  color: "#333",
+                  textAlign: "center",
+                  padding: "20px",
+                }}
+              >
+                <h2>
+                  For a better experience, please switch to a desktop view!
+                </h2>
+              </div>
+            ) : (
+              <div className="mainContainer">
               <div className="mainLeft">
                 <div className="canvasContainer">
 
@@ -975,7 +1013,11 @@ const mergeCanvases = () => {
                 </div>
               </div>
             </div>
-          )}
+            )}
+
+
+           
+         
         </div>
       )}
     </>

@@ -6,7 +6,9 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate for redire
 import Loading from "./Loading";
 
 const DrawingApp = () => {
-  const canvasRef = useRef(null);
+  const canvasRef = useRef(null); // Drawing canvas
+  const imageCanvasRef = useRef(null); // Image canvas
+
   const [isDrawing, setIsDrawing] = useState(false);
   const [prompt, setPrompt] = useState("Sunset with Mountains"); // Selected text prompt
   const [subPrompts, setSubPrompts] = useState([]); // Store related sub-prompts
@@ -24,28 +26,12 @@ const DrawingApp = () => {
   const [isDraggingImage, setIsDraggingImage] = useState(false); // Image drag state
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 }); // Offset for dragging
   const [currentImageIndex, setCurrentImageIndex] = useState(null); // Track which image is being dragged or resized
-  // const [canvasState, setCanvasState] = useState(null); // New state to store canvas data
-
   const [selectedStyle, setSelectedStyle] = useState("Fantasy Art"); // Track the selected style
 
   const handleStyleSelect = (style) => {
     setSelectedStyle(style); // Update the selected style
   };
-  // Save canvas state after each drawing action
-  //   const saveCanvasState = () => {
-  //     const canvas = canvasRef.current;
-  //     const context = canvas.getContext("2d");
-  //     setCanvasState(context.getImageData(0, 0, canvas.width, canvas.height));
-  //   };
 
-  //   // Restore canvas state
-  //   const restoreCanvasState = () => {
-  //     const canvas = canvasRef.current;
-  //     const context = canvas.getContext("2d");
-  //     if (canvasState) {
-  //       context.putImageData(canvasState, 0, 0);
-  //     }
-  //   };
 
   // Redraw the canvas when the position or size of any image changes
   useEffect(() => {
@@ -55,6 +41,7 @@ const DrawingApp = () => {
   useEffect(() => {
     updateFinalPrompt();
   }, [lineArtImages, selectedSubPrompt]);
+
 
   // Mouse or touch events for canvas drawing
   const startDrawing = (x, y) => {
@@ -122,9 +109,10 @@ const DrawingApp = () => {
   const handleMouseUp = () => {
     stopDrawing();
   };
-  // Image drag and drop functionality (both for touch and mouse)
+
+
+  // Image drag and drop functionality for the image canvas (line art)
   const handleImageDragStart = (mouseX, mouseY) => {
-    let imageFound = false;
     lineArtImages.forEach((image, index) => {
       if (
         mouseX >= image.position.x &&
@@ -138,12 +126,8 @@ const DrawingApp = () => {
           x: mouseX - image.position.x,
           y: mouseY - image.position.y,
         });
-        imageFound = true;
       }
     });
-    if (!imageFound) {
-      setCurrentImageIndex(null);
-    }
   };
 
   const handleMouseMoveImage = (e) => {
@@ -187,15 +171,31 @@ const DrawingApp = () => {
     setIsDraggingImage(false);
   };
 
-  // Clear the canvas
-  const clearCanvas = () => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
-    context.clearRect(0, 0, canvas.width, canvas.height); // Clear the entire canvas
-    setLineArtImages([]); // Clear all line art images
-    setFinalPrompt(""); // Clear final prompt
-    setCanvasState();
+
+   // Clear both canvases
+   const clearCanvas = () => {
+    const drawingCanvas = canvasRef.current;
+    const drawingContext = drawingCanvas.getContext("2d");
+    const imageCanvas = imageCanvasRef.current;
+    const imageContext = imageCanvas.getContext("2d");
+
+    drawingContext.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+    imageContext.clearRect(0, 0, imageCanvas.width, imageCanvas.height);
+
+    setLineArtImages([]);
+    setFinalPrompt("");
   };
+
+
+  // Add this function to merge both canvases
+const mergeCanvases = () => {
+  const imageCanvas = imageCanvasRef.current;
+  const drawingCanvas = canvasRef.current;
+  const drawingContext = drawingCanvas.getContext("2d");
+
+  // Draw the imageCanvas content onto the drawingCanvas
+  drawingContext.drawImage(imageCanvas, 0, 0);
+};
 
   // Convert canvas to Blob
   const canvasToBlob = async () => {
@@ -257,6 +257,8 @@ const DrawingApp = () => {
         return;
       }
 
+      mergeCanvases();
+
       const canvasDrawingUrl = canvas.toDataURL("image/png"); // Get the canvas image as base64
       console.log("Canvas Drawing URL:", canvasDrawingUrl); // Debugging check
 
@@ -310,44 +312,6 @@ const DrawingApp = () => {
       setLoading(false);
     }
   };
-
-  // Handle selecting main prompt and show more options
-  //   const handlePromptSelect = (selectedPrompt) => {
-  //     setPrompt(selectedPrompt);
-  //     // Set 5 more related prompts
-  //     switch (selectedPrompt) {
-  //       case "Sunset over the mountains":
-  //         setSubPrompts([
-  //           "Sunset with clouds",
-  //           "Sunset with a river",
-  //           "Sunset with trees",
-  //           "Sunset with animals",
-  //           "Sunset with reflections",
-  //         ]);
-  //         break;
-  //       case "A futuristic city":
-  //         setSubPrompts([
-  //           "City with flying cars",
-  //           "City with neon lights",
-  //           "City at night",
-  //           "City with robots",
-  //           "City with skyscrapers",
-  //         ]);
-  //         break;
-  //       case "A serene beach":
-  //         setSubPrompts([
-  //           "Beach with palm trees",
-  //           "Beach with sunset",
-  //           "Beach with waves",
-  //           "Beach with people",
-  //           "Beach with boats",
-  //         ]);
-  //         break;
-  //       default:
-  //         setSubPrompts([]);
-  //     }
-  //     setSelectedSubPrompt(""); // Reset sub-prompt selection
-  //   };
 
   const handlePromptSelect = (selectedPrompt) => {
     setPrompt(selectedPrompt);
@@ -417,32 +381,30 @@ const DrawingApp = () => {
     setEraserMode(!eraserMode);
   };
 
-  // Handle line art selection (start dragging) and add it to the array of line art images
-  const handleLineArtSelect = (lineArt) => {
-    const canvas = canvasRef.current;
+   // Line art selection and placement
+   const handleLineArtSelect = (lineArt) => {
+    const canvas = imageCanvasRef.current;
     const canvasWidth = canvas.width;
     const canvasHeight = canvas.height;
 
     const newLineArt = {
       src: lineArt.src,
       text: lineArt.text,
-      position: { x: canvasWidth / 4, y: canvasHeight / 4 }, // Default position
+      position: { x: canvasWidth / 4, y: canvasHeight / 4 },
       size: {
-        width: Math.random() * (canvasWidth / 4) + canvasWidth / 4, // Random width between canvasWidth/2 and canvasWidth
-        height: Math.random() * (canvasHeight / 4) + canvasHeight / 4, // Random height between canvasHeight/2 and canvasHeight
-      }, // Scale size relative to canvas
+        width: Math.random() * (canvasWidth / 4) + canvasWidth / 4,
+        height: Math.random() * (canvasHeight / 4) + canvasHeight / 4,
+      },
     };
 
-    setLineArtImages([...lineArtImages, newLineArt]); // Add new image to the list
+    setLineArtImages([...lineArtImages, newLineArt]);
   };
 
-  // Draw all line art images on the canvas
-  const drawAllImages = () => {
-    const canvas = canvasRef.current;
+   // Draw all line art images on the image canvas
+   const drawAllImages = () => {
+    const canvas = imageCanvasRef.current;
     const context = canvas.getContext("2d");
-    context.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas before re-drawing
-
-    // restoreCanvasState();
+    context.clearRect(0, 0, canvas.width, canvas.height);
 
     lineArtImages.forEach((image) => {
       const img = new Image();
@@ -519,7 +481,7 @@ const DrawingApp = () => {
 
   return (
     <>
-      {loading && (
+      {loading && ( 
         <div>
           <video
             src="02.mp4"
@@ -538,6 +500,22 @@ const DrawingApp = () => {
             <div className="mainContainer">
               <div className="mainLeft">
                 <div className="canvasContainer">
+
+                <canvas
+                  ref={imageCanvasRef}
+                  width="1192"
+                  height="650"
+                  onMouseDown={(e) => handleImageDragStart(e.nativeEvent.offsetX, e.nativeEvent.offsetY)}
+                  onMouseMove={handleMouseMoveImage}
+                  onMouseUp={handleMouseUpImage}
+                  style={{
+                    position: "absolute",
+                    zIndex: 1, // Lower z-index to be below drawing
+                    top: 0,
+                    left: 76,
+                    backgroundColor:"white"
+                  }}
+                ></canvas>
                   <canvas
                     ref={canvasRef}
                     onMouseDown={(e) => {
@@ -568,7 +546,10 @@ const DrawingApp = () => {
                     height="650"
                     style={{
                       border: "1px solid black",
-                      backgroundColor: "white",
+                      zIndex:2,
+               // Transparent background
+                      backgroundColor:"transparent"
+                        // backgroundColor:"red"
                     }}
                   ></canvas>
                 </div>
@@ -858,33 +839,7 @@ const DrawingApp = () => {
                     </div>
                   )}
                 </div>
-                {/* Style Selection */}
-                {/* <div className="whole-style-container">
-                  <h2
-                    style={{
-                      color: "white",
-                      fontWeight: 600,
-                      fontSize: 16,
-                      paddingBottom: 18,
-                    }}
-                  >
-                    SELECT STYLE:
-                  </h2>
-                  <div className="style-container">
-                    <button onClick={() => handleStyleSelect("Fantasy Art")}>
-                      Fantasy Art
-                    </button>
-                    <button onClick={() => handleStyleSelect("Neon Punk")}>
-                      Neon Punk
-                    </button>
-                    <button onClick={() => handleStyleSelect("Pixel Art")}>
-                    Pixel Art
-                    </button>
-                    <button onClick={() => handleStyleSelect("Comic Book")}>
-                    Comic Book
-                    </button>
-                  </div>
-                </div> */}
+
 
                 <div className="whole-style-container">
                   <h2
