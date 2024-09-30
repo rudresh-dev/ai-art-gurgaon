@@ -65,61 +65,61 @@ const DrawingApp = () => {
     };
   }, []);
 
-  // Function to draw the logo on the canvas
-  const drawLogo = (context) => {
-    const logo = new Image();
-    logo.src = logoUrl;
+  // // Function to draw the logo on the canvas
+  // const drawLogo = (context) => {
+  //   const logo = new Image();
+  //   logo.src = logoUrl;
 
-    return new Promise((resolve) => {
-      // Ensure logo is fully loaded
-      logo.onload = () => {
-        const canvas = canvasRef.current;
+  //   return new Promise((resolve) => {
+  //     // Ensure logo is fully loaded
+  //     logo.onload = () => {
+  //       const canvas = canvasRef.current;
 
-        if (!canvas) {
-          console.error("Canvas not found");
-          resolve(); // Fail silently, no drawing
-          return;
-        }
+  //       if (!canvas) {
+  //         console.error("Canvas not found");
+  //         resolve(); // Fail silently, no drawing
+  //         return;
+  //       }
 
-        const canvasWidth = canvas.width;
-        const canvasHeight = canvas.height;
+  //       const canvasWidth = canvas.width;
+  //       const canvasHeight = canvas.height;
 
-        const logoWidth = canvasWidth * 0.15; // Scale the logo to 15% of canvas width
-        const logoHeight = logoWidth * (logo.height / logo.width); // Maintain aspect ratio
+  //       const logoWidth = canvasWidth * 0.15; // Scale the logo to 15% of canvas width
+  //       const logoHeight = logoWidth * (logo.height / logo.width); // Maintain aspect ratio
 
-        // Draw the logo at the bottom right corner
-        const x = canvasWidth - logoWidth - 20; // 20px margin from the right
-        const y = canvasHeight - logoHeight - 20; // 20px margin from the bottom
+  //       // Draw the logo at the bottom right corner
+  //       const x = canvasWidth - logoWidth - 20; // 20px margin from the right
+  //       const y = canvasHeight - logoHeight - 20; // 20px margin from the bottom
 
-        context.drawImage(logo, x, y, logoWidth, logoHeight);
-        resolve(); // Resolve after drawing is complete
-      };
+  //       context.drawImage(logo, x, y, logoWidth, logoHeight);
+  //       resolve(); // Resolve after drawing is complete
+  //     };
 
-      // Handle error if logo fails to load
-      logo.onerror = () => {
-        console.error("Failed to load logo image");
-        resolve(); // Resolve to continue with other actions
-      };
-    });
-  };
+  //     // Handle error if logo fails to load
+  //     logo.onerror = () => {
+  //       console.error("Failed to load logo image");
+  //       resolve(); // Resolve to continue with other actions
+  //     };
+  //   });
+  // };
 
-  const mergeCanvasesWithLogo = async () => {
-    const imageCanvas = imageCanvasRef.current;
-    const drawingCanvas = canvasRef.current;
+  // const mergeCanvasesWithLogo = async () => {
+  //   const imageCanvas = imageCanvasRef.current;
+  //   const drawingCanvas = canvasRef.current;
 
-    if (!drawingCanvas) {
-      console.error("Drawing canvas not found");
-      return;
-    }
+  //   if (!drawingCanvas) {
+  //     console.error("Drawing canvas not found");
+  //     return;
+  //   }
 
-    const drawingContext = drawingCanvas.getContext("2d");
+  //   const drawingContext = drawingCanvas.getContext("2d");
 
-    // Draw the imageCanvas content onto the drawingCanvas
-    drawingContext.drawImage(imageCanvas, 0, 0);
+  //   // Draw the imageCanvas content onto the drawingCanvas
+  //   drawingContext.drawImage(imageCanvas, 0, 0);
 
-    // Draw the logo on the canvas
-    await drawLogo(drawingContext);
-  };
+  //   // Draw the logo on the canvas
+  //   // await drawLogo(drawingContext);
+  // };
 
   // Mouse or touch events for canvas drawing
   const startDrawing = (x, y) => {
@@ -342,7 +342,7 @@ const DrawingApp = () => {
       }
 
       // Merge canvas with logo and all image layers
-      await mergeCanvasesWithLogo();
+      // await mergeCanvasesWithLogo();
 
       // Convert the canvas to Blob
       const imageBlob = await canvasToBlob();
