@@ -1651,3 +1651,26 @@ input[type="range"]::-moz-range-thumb {
     margin-bottom: 16px;
   }
 }
+
+
+
+@media only screen and (min-width: 2000px){
+  .mainLeft{
+    justify-content: center;
+  }
+
+
+  .canvasff{
+    width: 60vw;
+    height: 60vh;
+  }
+  .canvasgg{
+    width: 60vw;
+    height: 60vh;
+  }
+
+  .bothGContainer{
+    width: 80vw;
+  }
+
+}

@@ -586,8 +586,10 @@ const DrawingApp = () => {
                 <div className="canvasContainer">
                   <canvas
                     ref={imageCanvasRef}
-                    
-                 
+                        width="1192"
+                
+           
+                    height="795"
                     onMouseDown={(e) =>
                       handleImageDragStart(
                         e.nativeEvent.offsetX,
@@ -625,6 +627,8 @@ const DrawingApp = () => {
                       handleTouchEndImage();
                     }}
                     className="canvasff"
+                        width="1192"
+                    height="795"
                   ></canvas>
                 </div>
                 <div className="downContainer">
