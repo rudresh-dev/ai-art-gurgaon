@@ -213,26 +213,22 @@ const LineArtSelector = ({ onLineArtSelect }) => {
   };
 
   return (
-    <div style={{marginBottom:"30px"}}>
-      <h4 style={{ color: "white", fontWeight: 600, fontSize: 16, paddingBottom:16 }}>
+    <div className="whole-line-art-g-container">
+      <h4>
         SELECT SHAPES
       </h4>
       {/* Main Image Selector */}
-      <div style={{ display: "flex", gap: "14px", marginBottom: "16px" }}>
+      <div  className="main-line-art-selector">
         {lineArtDivs.map((lineArt, index) => (
           <div
             key={index}
-            onClick={() => handleMainImageClick(index)} // Set the clicked image as active
+            onClick={() => handleMainImageClick(index)}
+            className="line-art-boxes" // Set the clicked image as active
             style={{
               border:
                 activeIndex === index ? "3px solid #000" : "1px solid #fff",
-              borderRadius: "8px",
-              padding: "5px 0px",
-              textAlign:"center",
-              cursor: "pointer",
               background: activeIndex === index ? "#f0f0f0" : "transparent",
               color: activeIndex === index ? "#000" : "#fff",
-              width:"125px"
             }}
           >
             <p>{lineArt.text}</p>
@@ -242,37 +238,22 @@ const LineArtSelector = ({ onLineArtSelect }) => {
 
       {/* Sub-Image Selector based on active main image */}
       <div
-        style={{
-          display: "flex",
-          gap: "14px",
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+      className="sub-lineart-image-selector"
       >
         {lineArtDivs[activeIndex].subImages.map((subImage, subIndex) => (
-          <div style={{display:"flex", flexDirection:"column", gap:"8px"}}>
+          <div className="main-sub-image-main-lineart">
             <div
               key={subIndex}
               onClick={() => onLineArtSelect(subImage)} // Pass the selected sub-image to the parent
               draggable="true"
-              style={{
-                cursor: "grab",
-                border: "1px solid #fff",
-                borderRadius: "14px",
-                padding: "10px",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                width:"125px"
-              }}
+         
+              className="linert-gg55op"
             >
               {/* Show icon in div */}
               <img
                 src={subImage.icon}
                 alt={`Icon ${subIndex + 1}`}
-                style={{ width: "100px", height: "70px", marginBottom: "5px" }}
+                className="inside-image-line-art"
               />
               {/* Display text */}
             </div>

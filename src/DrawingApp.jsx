@@ -28,6 +28,9 @@ const DrawingApp = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(null); // Track which image is being dragged or resized
   const [selectedStyle, setSelectedStyle] = useState("Fantasy Art"); // Track the selected style
   const [isMobileView, setIsMobileView] = useState(false); // Detect mobile view
+
+  const logoUrl = "/logo.png"; // Path to your logo image
+
   const handleStyleSelect = (style) => {
     setSelectedStyle(style); // Update the selected style
   };
@@ -46,11 +49,9 @@ const DrawingApp = () => {
     const checkScreenSize = () => {
       if (window.innerWidth < 768) {
         setIsMobileView(true);
-      } 
-      else if (window.innerWidth <= 768){
+      } else if (window.innerWidth <= 768) {
         setIsMobileView(true);
-      } 
-      else {
+      } else {
         setIsMobileView(false);
       }
     };
@@ -63,6 +64,62 @@ const DrawingApp = () => {
       window.removeEventListener("resize", checkScreenSize); // Cleanup listener
     };
   }, []);
+
+  // Function to draw the logo on the canvas
+  const drawLogo = (context) => {
+    const logo = new Image();
+    logo.src = logoUrl;
+
+    return new Promise((resolve) => {
+      // Ensure logo is fully loaded
+      logo.onload = () => {
+        const canvas = canvasRef.current;
+
+        if (!canvas) {
+          console.error("Canvas not found");
+          resolve(); // Fail silently, no drawing
+          return;
+        }
+
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+
+        const logoWidth = canvasWidth * 0.15; // Scale the logo to 15% of canvas width
+        const logoHeight = logoWidth * (logo.height / logo.width); // Maintain aspect ratio
+
+        // Draw the logo at the bottom right corner
+        const x = canvasWidth - logoWidth - 20; // 20px margin from the right
+        const y = canvasHeight - logoHeight - 20; // 20px margin from the bottom
+
+        context.drawImage(logo, x, y, logoWidth, logoHeight);
+        resolve(); // Resolve after drawing is complete
+      };
+
+      // Handle error if logo fails to load
+      logo.onerror = () => {
+        console.error("Failed to load logo image");
+        resolve(); // Resolve to continue with other actions
+      };
+    });
+  };
+
+  const mergeCanvasesWithLogo = async () => {
+    const imageCanvas = imageCanvasRef.current;
+    const drawingCanvas = canvasRef.current;
+
+    if (!drawingCanvas) {
+      console.error("Drawing canvas not found");
+      return;
+    }
+
+    const drawingContext = drawingCanvas.getContext("2d");
+
+    // Draw the imageCanvas content onto the drawingCanvas
+    drawingContext.drawImage(imageCanvas, 0, 0);
+
+    // Draw the logo on the canvas
+    await drawLogo(drawingContext);
+  };
 
   // Mouse or touch events for canvas drawing
   const startDrawing = (x, y) => {
@@ -215,12 +272,22 @@ const DrawingApp = () => {
     drawingContext.drawImage(imageCanvas, 0, 0);
   };
 
-  // Convert canvas to Blob
   const canvasToBlob = async () => {
     const canvas = canvasRef.current;
-    return new Promise((resolve) => {
+    if (!canvas) {
+      console.error("Canvas not found when trying to convert to Blob.");
+      return null; // Return null to handle this gracefully
+    }
+
+    return new Promise((resolve, reject) => {
       canvas.toBlob((blob) => {
-        resolve(blob);
+        if (blob) {
+          resolve(blob);
+        } else {
+          reject(
+            new Error("Canvas is empty or could not be converted to a blob")
+          );
+        }
       }, "image/png");
     });
   };
@@ -264,29 +331,30 @@ const DrawingApp = () => {
       );
       return;
     }
-    setLoading(true); // Start showing the loading screen
+
+    setLoading(true); // Start loading screen
 
     try {
-      // Convert the canvas to base64 for displaying in the result page
       const canvas = canvasRef.current;
-
       if (!canvas) {
-        console.error("Canvas not found!"); // Debugging check
+        console.error("Canvas not found during submission!");
         return;
       }
 
-      mergeCanvases();
+      // Merge canvas with logo and all image layers
+      await mergeCanvasesWithLogo();
 
-      const canvasDrawingUrl = canvas.toDataURL("image/png"); // Get the canvas image as base64
-      console.log("Canvas Drawing URL:", canvasDrawingUrl); // Debugging check
-
-      console.log("Final Prompt:", finalPrompt);
-      // Send the canvas image and prompt data to the FastAPI backend
+      // Convert the canvas to Blob
       const imageBlob = await canvasToBlob();
+      if (!imageBlob) {
+        console.error("Canvas conversion to Blob failed.");
+        return;
+      }
+
       const formData = new FormData();
       formData.append("prompt", finalPrompt);
       formData.append("style", style);
-      formData.append("image", imageBlob, "drawing.png"); // Sending image as a binary Blob
+      formData.append("image", imageBlob, "drawing.png");
 
       const response = await axios.post(
         "https://king-prawn-app-js4z2.ondigitalocean.app/generate-image/",
@@ -301,11 +369,10 @@ const DrawingApp = () => {
       if (response.data.status === "success") {
         const imageUrl = response.data.image_url;
 
-        // Ensure the imageUrl has the correct format
         const generatedUrl = imageUrl.startsWith("http")
           ? imageUrl
           : `https://king-prawn-app-js4z2.ondigitalocean.app/${imageUrl}`;
-        setGeneratedImageUrl(generatedUrl); // Set the URL of the generated image
+        setGeneratedImageUrl(generatedUrl);
 
         // Fetch the generated image as Blob from the backend URL
         const generatedImageBlob = await fetchImageBlob(generatedUrl);
@@ -314,12 +381,9 @@ const DrawingApp = () => {
         const supabaseUrl = await uploadToSupabase(generatedImageBlob);
 
         if (supabaseUrl) {
-          console.log("Image uploaded to Supabase, URL:", supabaseUrl); // Debugging
-          console.log("Navigating to result page"); // Debugging before navigation
           navigate("/result", {
-            state: { canvasDrawingUrl, uploadedImageUrl: supabaseUrl },
+            state: { uploadedImageUrl: supabaseUrl },
           });
-          console.log("Navigation triggered"); // Debugging after navigation
         }
       } else {
         console.error("Error:", response.data.message);
@@ -513,19 +577,7 @@ const DrawingApp = () => {
       {!loading && (
         <div style={{ display: "block" }}>
           {isMobileView ? (
-            <div
-              style={{
-                width: "100vw",
-                height: "100vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#fff",
-                color: "#333",
-                textAlign: "center",
-                padding: "20px",
-              }}
-            >
+            <div className="mobileView">
               <h2>For a better experience, please switch to a desktop view!</h2>
             </div>
           ) : (
@@ -534,8 +586,8 @@ const DrawingApp = () => {
                 <div className="canvasContainer">
                   <canvas
                     ref={imageCanvasRef}
-                    width="1192"
-                    height="650"
+                    
+                 
                     onMouseDown={(e) =>
                       handleImageDragStart(
                         e.nativeEvent.offsetX,
@@ -544,13 +596,7 @@ const DrawingApp = () => {
                     }
                     onMouseMove={handleMouseMoveImage}
                     onMouseUp={handleMouseUpImage}
-                    style={{
-                      position: "absolute",
-                      zIndex: 1, // Lower z-index to be below drawing
-                      top: 0,
-                      left: 76,
-                      backgroundColor: "white",
-                    }}
+                    className="canvasgg"
                   ></canvas>
                   <canvas
                     ref={canvasRef}
@@ -578,15 +624,7 @@ const DrawingApp = () => {
                       handleTouchEnd();
                       handleTouchEndImage();
                     }}
-                    width="1192"
-                    height="650"
-                    style={{
-                      border: "1px solid black",
-                      zIndex: 2,
-                      // Transparent background
-                      backgroundColor: "transparent",
-                      // backgroundColor:"red"
-                    }}
+                    className="canvasff"
                   ></canvas>
                 </div>
                 <div className="downContainer">
@@ -617,42 +655,10 @@ const DrawingApp = () => {
                 <LineArtSelector onLineArtSelect={handleLineArtSelect} />
 
                 {/* Image Resize and Delete Controls */}
-                <div style={{ width: "100%", marginBottom: "16px" }}>
-                  <h3
-                    style={{
-                      color: "white",
-                      fontWeight: 600,
-                      fontSize: 16,
-                      paddingBottom: 16,
-                    }}
-                  >
-                    ADJUST SIZE
-                  </h3>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: 10,
-                      alignItems: "flex-start",
-                      justifyContent: "flex-start",
-                      flexDirection: "row",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: "65%",
-                        border: "1px solid #fff",
-                        padding: "14px",
-                        borderRadius: "8px",
-                        paddingLeft: "16px",
-                        paddingRight: "16px",
-                        // height: "47px",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignContent: "center",
-                        alignItems: "center",
-                        height: "100%",
-                      }}
-                    >
+                <div className="imageResize-container">
+                  <h3>ADJUST SIZE</h3>
+                  <div className="imageResize-con">
+                    <div className="imageResige-002">
                       <input
                         type="range"
                         min="50"
@@ -671,17 +677,9 @@ const DrawingApp = () => {
                         } // Disable the input when no image is selected
                       />
                     </div>
-                    <div style={{}}>
+                    <div className="deletegg77">
                       <button
-                        style={{
-                          height: "47px",
-                          backgroundColor: "transparent",
-                          border: "1px solid #fff",
-                          padding: "10 50px",
-                          borderRadius: 10,
-                          color: "white",
-                          width: "140px",
-                        }}
+                        className="buttonGG-rf"
                         onClick={handleDeleteImage}
                         disabled={
                           currentImageIndex === null ||
@@ -694,56 +692,23 @@ const DrawingApp = () => {
                   </div>
                 </div>
 
-                <div
-                  className=""
-                  style={{
-                    width: "90%",
-                    height: "1px",
-                    backgroundColor: "#fff",
-                    margin: "16px 0",
-                  }}
-                ></div>
+                <div className="clasgg-55"></div>
                 {/* Prompt Selection */}
-                <h2
-                  style={{
-                    color: "white",
-                    fontWeight: 600,
-                    fontSize: 16,
-                    paddingBottom: 10,
-                    paddingTop: 10,
-                  }}
-                >
-                  SELECT THEME
-                </h2>
-                <div
-                  style={{
-                    backgroundColor: "white",
-                    padding: "0px",
-                    borderRadius: "10px",
-                    marginBottom: "30px",
-                  }}
-                >
+                <h2 className="clasgg-h2">SELECT THEME</h2>
+                <div className="mainthemcont">
                   <div>
-                    <div style={{ display: "flex", gap: "0px" }}>
+                    <div className="oggng">
                       <div></div>
                       <div
                         onClick={() =>
                           handlePromptSelect("Sunset with Mountains")
                         }
+                        className="selecttheme-cc"
                         style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          height: "40px",
-                          width: "129px",
-                          textAlign: "center",
                           border:
                             prompt === "Sunset with Mountains"
                               ? "2px solid #000"
                               : "1px solid #ccc",
-                          borderTopLeftRadius: "8px",
-                          cursor: "pointer",
                           backgroundColor:
                             prompt === "Sunset with Mountains"
                               ? "#fff"
@@ -755,19 +720,13 @@ const DrawingApp = () => {
 
                       <div
                         onClick={() => handlePromptSelect("Space")}
+                        className="selecttheme-bb"
                         style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          height: "40px",
-                          width: "129px",
                           border:
                             prompt === "With Moons and Asteroids"
                               ? "2px solid #000"
                               : "1px solid #ccc",
-                          borderRadius: "0px",
-                          cursor: "pointer",
+
                           backgroundColor:
                             prompt === "With Moons and Asteroids"
                               ? "#f0f0f0"
@@ -779,19 +738,12 @@ const DrawingApp = () => {
 
                       <div
                         onClick={() => handlePromptSelect("Automibile")}
+                        className="selecttheme-aa"
                         style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          height: "40px",
-                          width: "129px",
                           border:
                             prompt === "With a City Skyline"
                               ? "2px solid #0F4ABA"
                               : "1px solid #ccc",
-                          borderRadius: "0px",
-                          cursor: "pointer",
                           backgroundColor:
                             prompt === "With a City Skyline"
                               ? "#f0f0f0"
@@ -802,19 +754,12 @@ const DrawingApp = () => {
                       </div>
                       <div
                         onClick={() => handlePromptSelect("Animal")}
+                        className="selecttheme-dd"
                         style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          width: "129px",
-                          height: "40px",
                           border:
                             prompt === "In a Neon-lit Cityscape"
                               ? "2px solid #000"
                               : "1px solid #ccc",
-                          borderTopRightRadius: "8px",
-                          cursor: "pointer",
                           backgroundColor:
                             prompt === "In a Neon-lit Cityscape"
                               ? "#f0f0f0"
@@ -828,22 +773,17 @@ const DrawingApp = () => {
 
                   {/* Show more options based on selected prompt */}
                   {subPrompts.length > 0 && (
-                    <div style={{ width: "100%" }}>
+                    <div className="sub-prompts-contaier-main">
+                      
                       <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "0px",
-                          width: "100%",
-                        }}
+                      className="sub-prompts-contaier-ff"
                       >
                         {subPrompts.map((subPrompt, index) => (
                           <div
                             key={index}
                             onClick={() => setSelectedSubPrompt(subPrompt)}
+                            className="sub-prompts-oopp"
                             style={{
-                              padding: "0px 10px",
-                              margin: "6px 6px",
 
                               border:
                                 selectedSubPrompt === subPrompt
@@ -851,7 +791,7 @@ const DrawingApp = () => {
                                   : "0px solid #ccc",
                               borderRadius:
                                 selectedSubPrompt === subPrompt ? "7px" : "7px",
-                              cursor: "pointer",
+          
                               backgroundColor:
                                 selectedSubPrompt === subPrompt
                                   ? "#EEEEEE"
@@ -874,19 +814,12 @@ const DrawingApp = () => {
 
                 <div className="whole-style-container">
                   <h2
-                    style={{
-                      color: "white",
-                      fontWeight: 600,
-                      fontSize: 16,
-                      paddingBottom: 18,
-                    }}
                   >
                     SELECT STYLE:
                   </h2>
 
                   <div
                     className="style-container"
-                    style={{ display: "flex", gap: "10px" }}
                   >
                     {/* Style Button 1 */}
                     <button
@@ -898,18 +831,16 @@ const DrawingApp = () => {
                             : "transparent", // Change color if selected
                         color:
                           selectedStyle === "Fantasy Art" ? "#000" : "#fff",
-                        padding: "10px 20px",
-                        border: "1px solid #ddd",
-                        borderRadius: "8px",
-                        cursor: "pointer",
                         transition: "background-color 0.3s ease", // Smooth background color transition
                       }}
+                      className="button-g-ryt"
                     >
                       Fantasy Art
                     </button>
 
                     {/* Style Button 2 */}
                     <button
+                         className="button-f-ryt"
                       onClick={() => handleStyleSelect("Neon Punk")}
                       style={{
                         backgroundColor:
@@ -917,10 +848,6 @@ const DrawingApp = () => {
                             ? "#fff"
                             : "transparent",
                         color: selectedStyle === "Neon Punk" ? "#000" : "#fff",
-                        padding: "10px 20px",
-                        border: "1px solid #ddd",
-                        borderRadius: "8px",
-                        cursor: "pointer",
                         transition: "background-color 0.3s ease", // Smooth background color transition
                       }}
                     >
@@ -930,6 +857,7 @@ const DrawingApp = () => {
                     {/* Style Button 3 */}
                     <button
                       onClick={() => handleStyleSelect("Hyperrealism")}
+                      className="button-w-ryt"
                       style={{
                         backgroundColor:
                           selectedStyle === "Hyperrealism"
@@ -937,10 +865,6 @@ const DrawingApp = () => {
                             : "transparent",
                         color:
                           selectedStyle === "Hyperrealism" ? "#000" : "#fff",
-                        padding: "10px 20px",
-                        border: "1px solid #ddd",
-                        borderRadius: "8px",
-                        cursor: "pointer",
                         transition: "background-color 0.3s ease", // Smooth background color transition
                       }}
                     >
@@ -950,16 +874,13 @@ const DrawingApp = () => {
                     {/* Style Button 4 */}
                     <button
                       onClick={() => handleStyleSelect("Comic Book")}
+                      className="button-q-ryt"
                       style={{
                         backgroundColor:
                           selectedStyle === "Comic Book"
                             ? "#fff"
                             : "transparent",
                         color: selectedStyle === "Comic Book" ? "#000" : "#fff",
-                        padding: "10px 20px",
-                        border: "1px solid #ddd",
-                        borderRadius: "8px",
-                        cursor: "pointer",
                         transition: "background-color 0.3s ease", // Smooth background color transition
                       }}
                     >
@@ -969,37 +890,19 @@ const DrawingApp = () => {
                 </div>
 
                 <div
-                  className=""
-                  style={{
-                    width: "90%",
-                    height: "1px",
-                    backgroundColor: "#fff",
-                    margin: "30px 0",
-                  }}
+                  className="closedfgg"
+             
                 ></div>
 
                 {/* Submit Button */}
                 <div
-                  style={{
-                    height: "90px",
-                    width: "90%",
-                    marginTop: "1px",
-                    borderRadius: "16px",
-                    border: "none",
-                  }}
+                className="fgrogf"
+          
                 >
                   <button
                     onClick={handleSubmit}
+                    className="butoongft5"
                     disabled={loading}
-                    style={{
-                      height: "100%",
-                      width: "100%",
-                      borderRadius: "16px",
-                      border: "none",
-                      fontSize: "25px",
-                      fontWeight: "600",
-                      color: "#0F4ABA",
-                    }}
                   >
                     {loading ? "Generating..." : "Submit"}
                   </button>
