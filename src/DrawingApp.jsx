@@ -28,9 +28,6 @@ const DrawingApp = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(null); // Track which image is being dragged or resized
   const [selectedStyle, setSelectedStyle] = useState("Fantasy Art"); // Track the selected style
   const [isMobileView, setIsMobileView] = useState(false); // Detect mobile view
-
-  const logoUrl = "/logo.png"; // Path to your logo image
-
   const handleStyleSelect = (style) => {
     setSelectedStyle(style); // Update the selected style
   };
@@ -44,6 +41,8 @@ const DrawingApp = () => {
     updateFinalPrompt();
   }, [lineArtImages, selectedSubPrompt]);
 
+
+  
   // Detect screen size and set isMobileView
   useEffect(() => {
     const checkScreenSize = () => {
@@ -64,62 +63,6 @@ const DrawingApp = () => {
       window.removeEventListener("resize", checkScreenSize); // Cleanup listener
     };
   }, []);
-
-  // // Function to draw the logo on the canvas
-  // const drawLogo = (context) => {
-  //   const logo = new Image();
-  //   logo.src = logoUrl;
-
-  //   return new Promise((resolve) => {
-  //     // Ensure logo is fully loaded
-  //     logo.onload = () => {
-  //       const canvas = canvasRef.current;
-
-  //       if (!canvas) {
-  //         console.error("Canvas not found");
-  //         resolve(); // Fail silently, no drawing
-  //         return;
-  //       }
-
-  //       const canvasWidth = canvas.width;
-  //       const canvasHeight = canvas.height;
-
-  //       const logoWidth = canvasWidth * 0.15; // Scale the logo to 15% of canvas width
-  //       const logoHeight = logoWidth * (logo.height / logo.width); // Maintain aspect ratio
-
-  //       // Draw the logo at the bottom right corner
-  //       const x = canvasWidth - logoWidth - 20; // 20px margin from the right
-  //       const y = canvasHeight - logoHeight - 20; // 20px margin from the bottom
-
-  //       context.drawImage(logo, x, y, logoWidth, logoHeight);
-  //       resolve(); // Resolve after drawing is complete
-  //     };
-
-  //     // Handle error if logo fails to load
-  //     logo.onerror = () => {
-  //       console.error("Failed to load logo image");
-  //       resolve(); // Resolve to continue with other actions
-  //     };
-  //   });
-  // };
-
-  // const mergeCanvasesWithLogo = async () => {
-  //   const imageCanvas = imageCanvasRef.current;
-  //   const drawingCanvas = canvasRef.current;
-
-  //   if (!drawingCanvas) {
-  //     console.error("Drawing canvas not found");
-  //     return;
-  //   }
-
-  //   const drawingContext = drawingCanvas.getContext("2d");
-
-  //   // Draw the imageCanvas content onto the drawingCanvas
-  //   drawingContext.drawImage(imageCanvas, 0, 0);
-
-  //   // Draw the logo on the canvas
-  //   // await drawLogo(drawingContext);
-  // };
 
   // Mouse or touch events for canvas drawing
   const startDrawing = (x, y) => {
@@ -272,22 +215,12 @@ const DrawingApp = () => {
     drawingContext.drawImage(imageCanvas, 0, 0);
   };
 
+  // Convert canvas to Blob
   const canvasToBlob = async () => {
     const canvas = canvasRef.current;
-    if (!canvas) {
-      console.error("Canvas not found when trying to convert to Blob.");
-      return null; // Return null to handle this gracefully
-    }
-
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       canvas.toBlob((blob) => {
-        if (blob) {
-          resolve(blob);
-        } else {
-          reject(
-            new Error("Canvas is empty or could not be converted to a blob")
-          );
-        }
+        resolve(blob);
       }, "image/png");
     });
   };
@@ -331,30 +264,29 @@ const DrawingApp = () => {
       );
       return;
     }
-
-    setLoading(true); // Start loading screen
+    setLoading(true); // Start showing the loading screen
 
     try {
+      // Convert the canvas to base64 for displaying in the result page
       const canvas = canvasRef.current;
+
       if (!canvas) {
-        console.error("Canvas not found during submission!");
+        console.error("Canvas not found!"); // Debugging check
         return;
       }
 
-      // Merge canvas with logo and all image layers
-      // await mergeCanvasesWithLogo();
+      mergeCanvases();
 
-      // Convert the canvas to Blob
+      const canvasDrawingUrl = canvas.toDataURL("image/png"); // Get the canvas image as base64
+      console.log("Canvas Drawing URL:", canvasDrawingUrl); // Debugging check
+
+      console.log("Final Prompt:", finalPrompt);
+      // Send the canvas image and prompt data to the FastAPI backend
       const imageBlob = await canvasToBlob();
-      if (!imageBlob) {
-        console.error("Canvas conversion to Blob failed.");
-        return;
-      }
-
       const formData = new FormData();
       formData.append("prompt", finalPrompt);
       formData.append("style", style);
-      formData.append("image", imageBlob, "drawing.png");
+      formData.append("image", imageBlob, "drawing.png"); // Sending image as a binary Blob
 
       const response = await axios.post(
         "https://king-prawn-app-js4z2.ondigitalocean.app/generate-image/",
@@ -369,10 +301,11 @@ const DrawingApp = () => {
       if (response.data.status === "success") {
         const imageUrl = response.data.image_url;
 
+        // Ensure the imageUrl has the correct format
         const generatedUrl = imageUrl.startsWith("http")
           ? imageUrl
           : `https://king-prawn-app-js4z2.ondigitalocean.app/${imageUrl}`;
-        setGeneratedImageUrl(generatedUrl);
+        setGeneratedImageUrl(generatedUrl); // Set the URL of the generated image
 
         // Fetch the generated image as Blob from the backend URL
         const generatedImageBlob = await fetchImageBlob(generatedUrl);
@@ -381,9 +314,12 @@ const DrawingApp = () => {
         const supabaseUrl = await uploadToSupabase(generatedImageBlob);
 
         if (supabaseUrl) {
+          console.log("Image uploaded to Supabase, URL:", supabaseUrl); // Debugging
+          console.log("Navigating to result page"); // Debugging before navigation
           navigate("/result", {
-            state: { uploadedImageUrl: supabaseUrl },
+            state: { canvasDrawingUrl, uploadedImageUrl: supabaseUrl },
           });
+          console.log("Navigation triggered"); // Debugging after navigation
         }
       } else {
         console.error("Error:", response.data.message);

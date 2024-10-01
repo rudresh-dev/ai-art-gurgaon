@@ -1164,6 +1164,7 @@ input[type="range"]::-moz-range-thumb {
     align-items: center;
     gap: 30px;
   }
+
   .mainRight {
     width: 30%;
     display: flex;
@@ -1248,27 +1249,24 @@ input[type="range"]::-moz-range-thumb {
   /* sadfgrsfegrdndrnfh  */
 
   input[type="range"] {
-    /* removing default appearance */
     -webkit-appearance: none;
     appearance: none;
-    /* creating a custom design */
     width: 100%;
     cursor: pointer;
     outline: none;
-    /*  slider progress trick  */
     overflow: hidden;
     border-radius: 16px;
     height: 16px;
   }
 
-  /* Track: webkit browsers */
+
   input[type="range"]::-webkit-slider-runnable-track {
     height: 15px;
     background: #ccc;
     border-radius: 16px;
   }
 
-  /* Track: Mozilla Firefox */
+
   input[type="range"]::-moz-range-track {
     height: 15px;
     background: #ccc;
@@ -1277,27 +1275,23 @@ input[type="range"]::-moz-range-thumb {
 
   /* Thumb: webkit */
   input[type="range"]::-webkit-slider-thumb {
-    /* removing default appearance */
     -webkit-appearance: none;
     appearance: none;
-    /* creating a custom design */
     height: 15px;
     width: 15px;
     background-color: #fff;
     border-radius: 50%;
     border: 2px solid #0f4aba;
-    /*  slider progress trick  */
     box-shadow: -500px 0 0 500px #0f4aba;
   }
 
-  /* Thumb: Firefox */
+
   input[type="range"]::-moz-range-thumb {
     height: 15px;
     width: 15px;
     background-color: #fff;
     border-radius: 50%;
     border: 1px solid #0f4aba;
-    /*  slider progress trick  */
     box-shadow: -500px 0 0 500px #0f4aba;
   }
 
@@ -1641,8 +1635,8 @@ input[type="range"]::-moz-range-thumb {
   .resetButton{
     height: 90px;
     font-size: 28px;
-
   }
+
   .mainLeft{
     padding-bottom: 20px;
   }
@@ -1658,8 +1652,6 @@ input[type="range"]::-moz-range-thumb {
   .mainLeft{
     justify-content: center;
   }
-
-
   .canvasff{
     width: 60vw;
     height: 60vh;
@@ -1668,9 +1660,9 @@ input[type="range"]::-moz-range-thumb {
     width: 60vw;
     height: 60vh;
   }
-
   .bothGContainer{
     width: 80vw;
+    justify-content: center;
   }
 
 }
