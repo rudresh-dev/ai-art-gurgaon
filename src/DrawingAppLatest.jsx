@@ -4,7 +4,7 @@ import { supabase } from "../supabaseClient"; // Import Supabase client
 import LineArtSelector from "./LineArtSelector"; // Import the LineArtSelector component
 import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 import Loading from "./Loading";
-import { ImageContext } from "../src/ImageContext";
+import { ImageContext } from "./ImageContext";
 import { useUser } from "@clerk/clerk-react";
 const MAX_TRIALS = 3; // Maximum allowed trials
 
@@ -127,6 +127,95 @@ const updateUserTrials = async (newTrialCount) => {
     console.error("Error updating trials:", err);
   }
 };
+
+
+ // Function to load the overlay image
+ const loadOverlayImage = (src) => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => resolve(img);
+    img.onerror = (err) => reject(err);
+  });
+};
+
+// Function to merge the canvas drawing and generated image with the overlay
+// const mergeWithOverlay = async (generatedImageUrl) => {
+//   const generatedImage = await loadOverlayImage(generatedImageUrl);
+//   const overlayImage = await loadOverlayImage("logo.png"); // Load your overlay PNG
+
+//   // Create a new canvas for merging the images
+//   const mergedCanvas = document.createElement("canvas");
+//   const mergedContext = mergedCanvas.getContext("2d");
+
+//   // Set the size of the merged canvas to match the generated image
+//   mergedCanvas.width = generatedImage.width;
+//   mergedCanvas.height = generatedImage.height;
+
+//   // Draw the generated image on the merged canvas
+//   mergedContext.drawImage(generatedImage, 0, 0);
+
+//   // Draw the overlay image on top of the generated image
+//   mergedContext.drawImage(
+//     overlayImage,
+//     0,
+//     0,
+//     generatedImage.width,
+//     generatedImage.height
+//   );
+
+//   // Convert the merged canvas to Blob
+//   return new Promise((resolve) =>
+//     mergedCanvas.toBlob((blob) => resolve(blob), "image/png")
+//   );
+// };
+
+
+// Merge generated image and overlay into canvas
+const mergeWithOverlay = async (generatedImageUrl) => {
+  return new Promise(async (resolve, reject) => {
+    const canvas = canvasRef.current;
+    if (!canvas) {
+      reject(new Error("Canvas element not found"));
+      return;
+    }
+
+    const context = canvas.getContext("2d");
+    if (!context) {
+      reject(new Error("Failed to get canvas context"));
+      return;
+    }
+
+    try {
+      // Load generated and overlay images
+      const generatedImage = await loadOverlayImage(generatedImageUrl);
+      const overlayImage = await loadOverlayImage("/logo.png"); // Ensure the correct path to your overlay PNG
+
+      // Resize the canvas to the generated image's size
+      canvas.width = generatedImage.width;
+      canvas.height = generatedImage.height;
+
+      // Draw the generated image on canvas
+      context.drawImage(generatedImage, 0, 0, canvas.width, canvas.height);
+
+      // Draw the overlay image on top of the generated image
+      context.drawImage(overlayImage, 0, 0, canvas.width, canvas.height);
+
+      // Convert the canvas to a Blob (image/png)
+      canvas.toBlob((blob) => {
+        if (blob) {
+          resolve(blob); // Return the merged image as a blob
+        } else {
+          reject(new Error("Canvas toBlob failed"));
+        }
+      }, "image/png");
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+
 
 
   // Mouse or touch events for canvas drawing
@@ -405,15 +494,18 @@ const updateUserTrials = async (newTrialCount) => {
           : `https://king-prawn-app-js4z2.ondigitalocean.app/${imageUrl}`;
         setGeneratedImageUrl(generatedUrl); // Set the URL of the generated image
 
-        // Fetch the generated image as Blob from the backend URL
-        const generatedImageBlob = await fetchImageBlob(generatedUrl);
+        // // Fetch the generated image as Blob from the backend URL
+        // const generatedImageBlob = await fetchImageBlob(generatedUrl);
+
+         // Merge with the overlay
+         const mergedImageBlob = await mergeWithOverlay(generatedUrl);
+
 
         // Upload the fetched image Blob to Supabase
-        const supabaseUrl = await uploadToSupabase(generatedImageBlob);
+        const supabaseUrl = await uploadToSupabase(mergedImageBlob);
 
         // Set the URLs in the context **before** navigating
         setCanvasDrawingUrl(canvasDrawingUrl);
-
         setUploadedImageUrl(supabaseUrl);
 
         if (supabaseUrl) {

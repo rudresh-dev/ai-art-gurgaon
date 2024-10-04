@@ -1,127 +1,286 @@
 
 
+// import React, { useState } from "react";
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import DrawingApp from './DrawingApp';
+// import Result from './Result';
+// import DisplayPage from "./DisplayPage";
+// import { ImageProvider } from "./ImageContext"; // Import the ImageProvider
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// const App = () => {
+
+
+//     return (
+//         <ImageProvider>
+//         <Router>
+//             <Routes>
+//                 <Route path="/" element={<DrawingApp />} />
+//                 <Route path="/result" element={<Result />} />
+//                 <Route path="/display" element={<DisplayPage />} />
+//             </Routes>
+//         </Router>
+//         </ImageProvider>
+//     );
+// };
+
+// export default App;
+
+
+
+
+// import React from "react";
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import DrawingApp from './DrawingApp';
+// import Result from './Result';
+// import DisplayPage from "./DisplayPage";
+// import { ImageProvider } from "./ImageContext"; // Import the ImageProvider
+// import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react"; // Import Clerk components
+
+// const App = () => {
+//     return (
+//         <ImageProvider>
+//             <Router>
+//                 <header >
+//                     <SignedOut>
+//                         <SignInButton />
+//                     </SignedOut>
+//                     <SignedIn className="sign-in-out">
+//                         <UserButton />
+//                     </SignedIn>
+//                 </header>
+//                 <Routes>
+//                     <Route path="/" element={<DrawingApp />} />
+//                     <Route path="/result" element={<Result />} />
+//                     <Route path="/display" element={<DisplayPage />} />
+//                 </Routes>
+//             </Router>
+//         </ImageProvider>
+//     );
+// };
+
+// export default App;
+
+
+
+
+
+
+// import React from "react";
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import DrawingApp from './DrawingApp';
+// import Result from './Result';
+// import DisplayPage from "./DisplayPage";
+// import { ImageProvider } from "./ImageContext"; // Import the ImageProvider
+// import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react"; // Import Clerk components
+
+// const App = () => {
+//     return (
+//         <ImageProvider>
+//             <Router>
+//                 <header>
+//                     <SignedOut>
+//                         <SignInButton />
+//                     </SignedOut>
+//                     <SignedIn>
+//                         <UserButton />
+//                     </SignedIn>
+//                 </header>
+//                 <Routes>
+//                     <Route
+//                         path="/"
+//                         element={
+//                             <SignedIn>
+//                                 <DrawingApp />
+//                             </SignedIn>
+//                         }
+//                     />
+//                     <Route
+//                         path="/result"
+//                         element={
+//                             <SignedIn>
+//                                 <Result />
+//                             </SignedIn>
+//                         }
+//                     />
+//                     <Route
+//                         path="/display"
+//                         element={
+//                             <SignedIn>
+//                                 <DisplayPage />
+//                             </SignedIn>
+//                         }
+//                     />
+//                     {/* Optional: Add a fallback route for signed-out users */}
+//                     <Route
+//                         path="*"
+//                         element={<div>Please sign in to access this content.</div>}
+//                     />
+//                 </Routes>
+//             </Router>
+//         </ImageProvider>
+//     );
+// };
+
+// export default App;
+
+
+
+
+
+
+
+
+// import React from "react";
+// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import DrawingApp from './DrawingApp';
+// import Result from './Result';
+// import DisplayPage from "./DisplayPage";
+// import { ImageProvider } from "./ImageContext"; // Import the ImageProvider
+// import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react"; // Import Clerk components
+
+// const App = () => {
+//     return (
+//         <ImageProvider>
+//             <Router>
+//                 <header>
+//                     <SignedOut>
+//                         <div className="sign-in-container">
+//                             <h1>Welcome to Our Application</h1>
+//                             <SignInButton className="sign-in-button" />
+//                         </div>
+//                     </SignedOut>
+//                     <SignedIn>
+//                         <UserButton />
+//                     </SignedIn>
+//                 </header>
+//                 <Routes>
+//                     <Route
+//                         path="/"
+//                         element={
+//                             <SignedIn>
+//                                 <DrawingApp />
+//                             </SignedIn>
+//                         }
+//                     />
+//                     <Route
+//                         path="/result"
+//                         element={
+//                             <SignedIn>
+//                                 <Result />
+//                             </SignedIn>
+//                         }
+//                     />
+//                     <Route
+//                         path="/display"
+//                         element={
+//                             <SignedIn>
+//                                 <DisplayPage />
+//                             </SignedIn>
+//                         }
+//                     />
+//                     {/* Optional: Add a fallback route for signed-out users */}
+//                     <Route
+//                         path="*"
+//                         element={<div>Please sign in to access this content.</div>}
+//                     />
+//                 </Routes>
+//             </Router>
+//         </ImageProvider>
+//     );
+// };
+
+// export default App;
+
+
+
+
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import DrawingApp from './DrawingApp';
 import Result from './Result';
+import DisplayPage from "./DisplayPage";
+import { ImageProvider } from "./ImageContext"; // Import the ImageProvider
+import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react"; // Import Clerk components
+import { SignIn } from "@clerk/clerk-react"; // Import SignIn component
 
 const App = () => {
+    const [usesLeft, setUsesLeft] = useState(3);
+
+    // Check local storage for the usage count on initial load
+    useEffect(() => {
+        const storedUses = localStorage.getItem("usesLeft");
+        if (storedUses) {
+            setUsesLeft(Number(storedUses));
+        }
+    }, []);
+
+    // Save usage count to local storage when it changes
+    useEffect(() => {
+        localStorage.setItem("usesLeft", usesLeft);
+    }, [usesLeft]);
+
+    const decrementUsage = () => {
+        if (usesLeft > 0) {
+            setUsesLeft(usesLeft - 1);
+        }
+    };
+
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<DrawingApp />} />
-                <Route path="/result" element={<Result />} />
-            </Routes>
-        </Router>
+        <ImageProvider>
+            <Router>
+                <header>
+                    <SignedOut>
+                        {/* Directly show the SignIn component instead of a button */}
+                        <div className="sign-in-container">
+                            {/* <h1>Welcome to Our Application</h1> */}
+                            <SignIn />
+                        </div>
+                    </SignedOut>
+                    <SignedIn>
+                        <UserButton />
+                    </SignedIn>
+                </header>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <SignedIn>
+                                {usesLeft > 0 ? (
+                                    <DrawingApp onUse={decrementUsage} />
+                                ) : (
+                                    <div>You have used up your access.</div>
+                                )}
+                            </SignedIn>
+                        }
+                    />
+                    <Route
+                        path="/result"
+                        element={
+                            <SignedIn>
+                                {usesLeft > 0 ? (
+                                    <Result onUse={decrementUsage} />
+                                ) : (
+                                    <div>You have used up your access.</div>
+                                )}
+                            </SignedIn>
+                        }
+                    />
+                    <Route
+                        path="/display"
+                        element={
+                            <SignedIn>
+                                {usesLeft > 0 ? (
+                                    <DisplayPage onUse={decrementUsage} />
+                                ) : (
+                                    <div>You have used up your access.</div>
+                                )}
+                            </SignedIn>
+                        }
+                    />
+                </Routes>
+            </Router>
+        </ImageProvider>
     );
 };
 
 export default App;
-
-
-
-
-
-// import React, { useState, useRef } from 'react';
-// import { Stage, Layer, Rect, Line, Image } from 'react-konva';
-// import useImage from 'use-image';
-
-// function App() {
-//   const stageRef = useRef(null);
-//   const [images, setImages] = useState([]);
-//   const [lines, setLines] = useState([]);
-//   const [isDrawing, setIsDrawing] = useState(false);
-
-//   // Handle image upload
-//   const handleImageUpload = (event) => {
-//     const files = event.target.files;
-//     const imageObjects = [];
-
-//     // Loop through selected files and create URLs
-//     for (let i = 0; i < files.length; i++) {
-//       const file = files[i];
-//       const url = URL.createObjectURL(file);
-//       imageObjects.push({ id: i + images.length, src: url, x: 50 + i * 150, y: 50 });
-//     }
-
-//     setImages([...images, ...imageObjects]);
-//   };
-
-//   // Handle drawing
-//   const handleMouseDown = (e) => {
-//     setIsDrawing(true);
-//     const pos = e.target.getStage().getPointerPosition();
-//     setLines([...lines, { points: [pos.x, pos.y] }]);
-//   };
-
-//   const handleMouseMove = (e) => {
-//     if (!isDrawing) return;
-
-//     const stage = e.target.getStage();
-//     const point = stage.getPointerPosition();
-//     const lastLine = lines[lines.length - 1];
-//     lastLine.points = lastLine.points.concat([point.x, point.y]);
-
-//     setLines([...lines.slice(0, lines.length - 1), lastLine]);
-//   };
-
-//   const handleMouseUp = () => {
-//     setIsDrawing(false);
-//   };
-
-//   return (
-//     <div style={{ textAlign: 'center', marginTop: '20px' }}>
-//       <input
-//         type="file"
-//         multiple
-//         onChange={handleImageUpload}
-//         style={{ marginBottom: '20px' }}
-//       />
-//       <Stage
-//         width={window.innerWidth}
-//         height={window.innerHeight - 100}
-//         ref={stageRef}
-//         onMouseDown={handleMouseDown}
-//         onMouseMove={handleMouseMove}
-//         onMouseUp={handleMouseUp}
-//         style={{ border: '1px solid grey' }}
-//       >
-//         <Layer>
-//           {images.map((image) => (
-//             <UploadedImage key={image.id} image={image} />
-//           ))}
-//           {lines.map((line, i) => (
-//             <Line
-//               key={i}
-//               points={line.points}
-//               stroke="black"
-//               strokeWidth={5}
-//               tension={0.5}
-//               lineCap="round"
-//               globalCompositeOperation={
-//                 line.tool === 'eraser' ? 'destination-out' : 'source-over'
-//               }
-//             />
-//           ))}
-//         </Layer>
-//       </Stage>
-//     </div>
-//   );
-// }
-
-// // Separate component to render uploaded images
-// const UploadedImage = ({ image }) => {
-//   const [loadedImage] = useImage(image.src);
-//   return (
-//     <Image
-//       image={loadedImage}
-//       x={image.x}
-//       y={image.y}
-//       width={150}
-//       height={150}
-//       draggable
-//     />
-//   );
-// };
-
-// export default App;

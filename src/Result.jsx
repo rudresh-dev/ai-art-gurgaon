@@ -1,18 +1,18 @@
-
-import { useNavigate, useLocation} from "react-router-dom"; 
-import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
 import { QRCodeCanvas } from "qrcode.react";
-import ReactLoading from 'react-loading'; 
-import './UIScreen.css';
+import ReactLoading from "react-loading";
+import { ImageContext } from "../src/ImageContext";
+import "./UIScreen.css";
 
 const Result = () => {
   const navigate = useNavigate(); // Initialize navigate function
-    const location = useLocation();
+  const location = useLocation();
   const handleRedraw = () => {
-    navigate('/'); // Navigate to the root path
+    navigate("/"); // Navigate to the root path
   };
 
-  const { canvasDrawingUrl, uploadedImageUrl } = location.state || {};
+  const { canvasDrawingUrl, uploadedImageUrl } = useContext(ImageContext);
 
   console.log("Received in result page:", canvasDrawingUrl, uploadedImageUrl); // Debugging
 
@@ -50,51 +50,53 @@ const Result = () => {
     checkImageLoad();
   }, [uploadedImageUrl, canvasDrawingUrl]);
 
-
-
   return (
     <div className="ui-screen">
       <div className="content">
         <div className="image-area">
           <div className="result-image">
-          {isImageLoading ? (
+            {isImageLoading ? (
               <div className="loading-container">
-              <ReactLoading type="spinningBubbles" color="#fff" height={200} width={200} /> {/* Larger and white spinner */}
-            </div>
+                <ReactLoading
+                  type="spinningBubbles"
+                  color="#fff"
+                  height={200}
+                  width={200}
+                />{" "}
+                {/* Larger and white spinner */}
+              </div>
             ) : (
-              <img 
-                src={uploadedImageUrl} 
-                alt="Futuristic cityscape" 
-              />
+              <img src={uploadedImageUrl} alt="Futuristic cityscape" />
             )}
           </div>
           <div className="art-image">
-          {isCanvasLoading ? (
-               <div className="loading-container">
-               <ReactLoading type="spinningBubbles" color="#fff" height={200} width={200} /> {/* Larger and white spinner */}
-             </div>
+            {isCanvasLoading ? (
+              <div className="loading-container">
+                <ReactLoading
+                  type="spinningBubbles"
+                  color="#fff"
+                  height={200}
+                  width={200}
+                />{" "}
+                {/* Larger and white spinner */}
+              </div>
             ) : (
-              <img 
-                src={canvasDrawingUrl} 
-                alt="Art image placeholder" 
-              />
+              <img src={canvasDrawingUrl} alt="Art image placeholder" />
             )}
           </div>
         </div>
         <div className="qr-area">
-            <div className="download-info">
-              <h2>Scan To Download</h2>
-            </div>
+          <div className="download-info">
+            <h2>Scan To Download</h2>
+          </div>
           <div className="qr-code">
-         
-          <QRCodeCanvas value={uploadedImageUrl} size={256} />
+            <QRCodeCanvas value={uploadedImageUrl} size={256} />
           </div>
           <button className="redraw-button" onClick={handleRedraw}>
             Redraw
           </button>
         </div>
       </div>
-      
     </div>
   );
 };
