@@ -629,7 +629,7 @@ const updateUserTrials = async (newTrialCount) => {
             </div>
           ) : (
             <div className="mainContainer">
-              <h2 style={{ position:"absolute", top:"60px", right:"40px", color:"red" }}>Remaining Trials: {remainingTrials}</h2>
+              <h2 style={{ position:"absolute", top:"60px", right:"40px", color:"#fff" }}>Trials: {remainingTrials}</h2>
               <div className="mainLeft">
                 <div className="canvasContainer">
                 
@@ -949,3 +949,4 @@ const updateUserTrials = async (newTrialCount) => {
 };
 
 export default DrawingApp;
+
