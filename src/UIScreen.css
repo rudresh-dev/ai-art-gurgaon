@@ -30,12 +30,13 @@
   align-items: center;
   justify-content: center;
   /* background-color: #8b5cf6; */
+  width: 70%;
 }
 
 .result-image {
   background-color: transparent;
   border-radius: 0.5rem;
-
+  
   padding: 1rem;
   aspect-ratio: 16/9;
   margin-bottom: 1rem;
@@ -59,7 +60,7 @@
   width: 15.333%;
   position: absolute;
   bottom: 16%;
-  right: 32%;
+  right: 38%;
 }
 
 .loading-container {
@@ -83,7 +84,7 @@
   align-items: flex-start;
   justify-content: center;
   gap: 2.5rem;
-
+  width: 30%;
   /* background-color: aqua; */
 }
 
@@ -105,7 +106,7 @@
   font-size: larger;
   font-size: 30px;
   font-weight: 600;
-  width: 100%;
+  width: 300px;
   height: 6vh;
   margin-top: 15px;
 }
