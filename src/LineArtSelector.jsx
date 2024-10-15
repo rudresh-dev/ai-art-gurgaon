@@ -174,12 +174,12 @@ const LineArtSelector = ({ onLineArtSelect }) => {
     },
     {
       src: "/a2.svg",
-      text: "Space",
+      text: "House",
       subImages: [
-        { src: "/dd/b1.svg", icon: "/d/b1.svg", text: "Astroids" },
-        { src: "/dd/b2.svg", icon: "/d/b2.svg", text: "Comet" },
-        { src: "/dd/b3.svg", icon: "/d/b3.svg", text: "Planet" },
-        { src: "/dd/b4.svg", icon: "/d/b4.svg", text: "Astronaut" },
+        { src: "/h1.svg", icon: "/hh1.svg", text: "Villa" },
+        { src: "/h2.svg", icon: "/hh2.svg", text: "Modern House" },
+        { src: "/h3.svg", icon: "/hh3.svg", text: "Old House" },
+        { src: "/h4.svg", icon: "/hh4.svg", text: "skyscraper" },
       ],
     },
     {
@@ -194,12 +194,12 @@ const LineArtSelector = ({ onLineArtSelect }) => {
     },
     {
       src: "/a4.p4ng",
-      text: "Animal",
+      text: "Anime",
       subImages: [
-        { src: "/d1.svg", icon: "/dd1.svg", text: "cat" },
-        { src: "/d4.svg", icon: "/dd4.svg", text: "dog" },
-        { src: "/aa2.png", icon: "/d/d3.svg", text: "Lion" },
-        { src: "/aa4.png", icon: "/d/d4.svg", text: "Camel" },
+        { src: "/d11.svg", icon: "/dd1.svg", text: "Drinks" },
+        { src: "/d5.svg", icon: "/dd5.svg", text: "Katana" },
+        { src: "/aa2.svg", icon: "/d/d3.svg", text: "Tori Gate" },
+        { src: "/aa.png", icon: "/d/d4.svg", text: "Akatsuki" },
       ],
     },
   ];

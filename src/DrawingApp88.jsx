@@ -79,7 +79,7 @@ const DrawingApp = () => {
       formData.append("image", blob, "drawing.png");
 
       const response = await axios.post(
-        "https://king-prawn-app-js4z2.ondigitalocean.app/generate-image/",
+        "http://127.0.0.1:8000/generate-image/",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

@@ -12,7 +12,7 @@
 }
 
 body {
-  /* background-image: url("/bg33.png"); */
+  background-image: url("/bg22.png");
   background-color: #233F80;
   background-size: cover;
   width: 100vw;
@@ -453,6 +453,7 @@ input[type="range"]::-moz-range-thumb {
   margin-top: 1px;
   border-radius: 16px;
   border: none;
+  color: #ffffff;
 }
 
 .butoongft5 {
@@ -462,7 +463,8 @@ input[type="range"]::-moz-range-thumb {
   border: none;
   font-size: 25px;
   font-weight: 600;
-  color: #0f4aba;
+  color: #ffffff;
+  background-color: #D12028;
 }
 
 .whole-line-art-g-container {
@@ -1551,7 +1553,7 @@ input[type="range"]::-moz-range-thumb {
     border: none;
     font-size: 25px;
     font-weight: 600;
-    color: #0f4aba;
+    color: #ffff;
   }
 
   .whole-line-art-g-container {

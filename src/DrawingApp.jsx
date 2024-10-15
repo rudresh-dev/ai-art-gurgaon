@@ -387,7 +387,7 @@ const DrawingApp = () => {
       formData.append("image", imageBlob, "drawing.png"); // Sending image as a binary Blob
 
       const response = await axios.post(
-        "https://king-prawn-app-js4z2.ondigitalocean.app/generate-image/",
+        "http://127.0.0.1:8000/generate-image/",
         formData,
         {
           headers: {
@@ -402,7 +402,7 @@ const DrawingApp = () => {
         // Ensure the imageUrl has the correct format
         const generatedUrl = imageUrl.startsWith("http")
           ? imageUrl
-          : `https://king-prawn-app-js4z2.ondigitalocean.app/${imageUrl}`;
+          : `http://127.0.0.1:8000/${imageUrl}`;
         setGeneratedImageUrl(generatedUrl); // Set the URL of the generated image
 
         // Fetch the generated image as Blob from the backend URL
@@ -454,13 +454,13 @@ const DrawingApp = () => {
           "Sunset with reflections",
         ]);
         break;
-      case "Space":
+      case "House":
         setSubPrompts([
-          "With Moons and Asteroids",
-          "Spiral Galaxy with Stars",
-          "Colliding Galaxies",
-          "Docked at a Space Station",
-          "Galaxy with Star Trails",
+          "Modern House on a Cliffside",
+          "Cottage in a Misty Forest",
+          "Luxury Mansion by the Beach",
+          "Skyscraper in a Busy Metropolis",
+          "Skyscraper Piercing through the Clouds",
         ]);
         break;
       case "Automibile":
@@ -472,13 +472,13 @@ const DrawingApp = () => {
           "Racing Through Urban Streets",
         ]);
         break;
-      case "Animal":
+      case "Anime":
         setSubPrompts([
-          "resting under the shade of a large tree in the savanna",
-          "splashing water in a calm river with its trunk.",
-          "sprinting across the open plains in pursuit of prey.",
-          "waddling across icy terrain with its chick.",
-          "howling at the full moon in a dark forest.",
+          "In a Neon-lit Cityscape",
+          "Battle in a Fantasy World",
+          "With Futuristic Vehicles",
+          "At a Lantern Festival",
+          "Hero with a Magic Sword",
         ]);
         break;
       default:
@@ -629,9 +629,9 @@ const DrawingApp = () => {
             </div>
           ) : (
             <div className="mainContainer">
-              <h2 style={{ position: "absolute", top: "60px", right: "40px", color: "#fff" }}>Trials: {remainingTrials}</h2>
+              {/* <h2 style={{ position: "absolute", top: "60px", right: "40px", color: "#fff" }}>Trials: {remainingTrials}</h2> */}
               <div className="mainLeft">
-                <div className="canvasContainer">
+                {/* <div className="canvasContainer">
 
                   <canvas
                     ref={imageCanvasRef}
@@ -677,7 +677,66 @@ const DrawingApp = () => {
                     width="1192"
                     height="795"
                   ></canvas>
+                </div> */}
+
+                <div className="canvasContainer" style={{ position: "relative" }}>
+                  {/* Logo Image */}
+                  <img
+                    src="/logo1.png"
+                    alt="Logo"
+                    style={{
+                      position: "absolute",
+                      top: "10px",
+                      left: "100px",
+                      width: "100px", // Adjust the size as needed
+                      zIndex: 10, // Make sure it appears above the canvases
+                    }}
+                  />
+
+                  <canvas
+                    ref={imageCanvasRef}
+                    width="1192"
+                    height="795"
+                    onMouseDown={(e) =>
+                      handleImageDragStart(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
+                    }
+                    onMouseMove={handleMouseMoveImage}
+                    onMouseUp={handleMouseUpImage}
+                    className="canvasgg"
+                  ></canvas>
+
+                  <canvas
+                    ref={canvasRef}
+                    onMouseDown={(e) => {
+                      handleMouseDown(e);
+                      handleMouseDownImage(e);
+                    }}
+                    onMouseMove={(e) => {
+                      handleMouseMove(e);
+                      handleMouseMoveImage(e);
+                    }}
+                    onMouseUp={() => {
+                      handleMouseUp();
+                      handleMouseUpImage();
+                    }}
+                    onTouchStart={(e) => {
+                      handleTouchStart(e);
+                      handleTouchStartImage(e);
+                    }}
+                    onTouchMove={(e) => {
+                      handleTouchMove(e);
+                      handleTouchMoveImage(e);
+                    }}
+                    onTouchEnd={() => {
+                      handleTouchEnd();
+                      handleTouchEndImage();
+                    }}
+                    className="canvasff"
+                    width="1192"
+                    height="795"
+                  ></canvas>
                 </div>
+
                 <div className="downContainer">
                   <div className="brushRest">
                     <input
@@ -770,21 +829,21 @@ const DrawingApp = () => {
                       </div>
 
                       <div
-                        onClick={() => handlePromptSelect("Space")}
+                        onClick={() => handlePromptSelect("House")}
                         className="selecttheme-bb"
                         style={{
                           border:
-                            prompt === "Space"
+                            prompt === "House"
                               ? "2px solid #fff"
                               : "1px solid #ccc",
 
                           backgroundColor:
-                            prompt === "Space"
+                            prompt === "House"
                               ? "#D12028"
                               : "transparent",
                         }}
                       >
-                        Space
+                        House/Skyscraper
                       </div>
 
                       <div
@@ -804,20 +863,20 @@ const DrawingApp = () => {
                         Automobile
                       </div>
                       <div
-                        onClick={() => handlePromptSelect("Animal")}
+                        onClick={() => handlePromptSelect("Anime")}
                         className="selecttheme-dd"
                         style={{
                           border:
-                            prompt === "Animal"
+                            prompt === "Anime"
                               ? "2px solid #fff"
                               : "1px solid #ccc",
                           backgroundColor:
-                            prompt === "Animal"
+                            prompt === "Anime"
                               ? "#D12028"
                               : "transparent",
                         }}
                       >
-                        Animal
+                        Anime
                       </div>
                     </div>
                   </div>

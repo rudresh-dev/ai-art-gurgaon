@@ -228,18 +228,16 @@ const App = () => {
     return (
         <ImageProvider>
             <Router>
-                <header>
+                {/* <header>
                     <SignedOut>
-                        {/* Directly show the SignIn component instead of a button */}
                         <div className="sign-in-container">
-                            {/* <h1>Welcome to Our Application</h1> */}
                             <SignIn />
                         </div>
                     </SignedOut>
                     <SignedIn>
                         <UserButton />
                     </SignedIn>
-                </header>
+                </header> */}
                 <Routes>
                     <Route
                         path="/"

@@ -476,7 +476,7 @@ const mergeWithOverlay = async (generatedImageUrl) => {
       formData.append("image", imageBlob, "drawing.png"); // Sending image as a binary Blob
 
       const response = await axios.post(
-        "https://king-prawn-app-js4z2.ondigitalocean.app/generate-image/",
+        "http://127.0.0.1:8000/generate-image/",
         formData,
         {
           headers: {
@@ -491,7 +491,7 @@ const mergeWithOverlay = async (generatedImageUrl) => {
         // Ensure the imageUrl has the correct format
         const generatedUrl = imageUrl.startsWith("http")
           ? imageUrl
-          : `https://king-prawn-app-js4z2.ondigitalocean.app/${imageUrl}`;
+          : `http://127.0.0.1:8000/${imageUrl}`;
         setGeneratedImageUrl(generatedUrl); // Set the URL of the generated image
 
         // // Fetch the generated image as Blob from the backend URL
@@ -546,7 +546,7 @@ const mergeWithOverlay = async (generatedImageUrl) => {
           "Sunset with reflections",
         ]);
         break;
-      case "Space":
+      case "House":
         setSubPrompts([
           "With Moons and Asteroids",
           "Spiral Galaxy with Stars",
@@ -564,14 +564,14 @@ const mergeWithOverlay = async (generatedImageUrl) => {
           "Racing Through Urban Streets",
         ]);
         break;
-      case "Animal":
-        setSubPrompts([
-          "resting under the shade of a large tree in the savanna",
-          "splashing water in a calm river with its trunk.",
-          "sprinting across the open plains in pursuit of prey.",
-          "waddling across icy terrain with its chick.",
-          "howling at the full moon in a dark forest.",
-        ]);
+        case "Anime":
+          setSubPrompts([
+            "In a Neon-lit Cityscape",
+            "Battle in a Fantasy World",
+            "With Futuristic Vehicles",
+            "At a Lantern Festival",
+            "Hero with a Magic Sword",
+          ]);
         break;
       default:
         setSubPrompts([]);
@@ -862,21 +862,21 @@ const mergeWithOverlay = async (generatedImageUrl) => {
                       </div>
 
                       <div
-                        onClick={() => handlePromptSelect("Space")}
+                        onClick={() => handlePromptSelect("House")}
                         className="selecttheme-bb"
                         style={{
                           border:
-                            prompt === "With Moons and Asteroids"
+                            prompt === "House"
                               ? "2px solid #000"
                               : "1px solid #ccc",
 
                           backgroundColor:
-                            prompt === "With Moons and Asteroids"
+                            prompt === "House"
                               ? "#f0f0f0"
                               : "transparent",
                         }}
                       >
-                        Space
+                        House
                       </div>
 
                       <div
@@ -896,7 +896,7 @@ const mergeWithOverlay = async (generatedImageUrl) => {
                         Automobile
                       </div>
                       <div
-                        onClick={() => handlePromptSelect("Animal")}
+                        onClick={() => handlePromptSelect("Anime")}
                         className="selecttheme-dd"
                         style={{
                           border:
@@ -909,7 +909,7 @@ const mergeWithOverlay = async (generatedImageUrl) => {
                               : "transparent",
                         }}
                       >
-                        Animal
+                        Anime
                       </div>
                     </div>
                   </div>
