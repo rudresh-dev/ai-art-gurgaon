@@ -476,7 +476,7 @@ const mergeWithOverlay = async (generatedImageUrl) => {
       formData.append("image", imageBlob, "drawing.png"); // Sending image as a binary Blob
 
       const response = await axios.post(
-        "http://127.0.0.1:8000/generate-image/",
+        "https://king-prawn-app-js4z2.ondigitalocean.app/generate-image/",
         formData,
         {
           headers: {
@@ -491,7 +491,7 @@ const mergeWithOverlay = async (generatedImageUrl) => {
         // Ensure the imageUrl has the correct format
         const generatedUrl = imageUrl.startsWith("http")
           ? imageUrl
-          : `http://127.0.0.1:8000/${imageUrl}`;
+          : `https://king-prawn-app-js4z2.ondigitalocean.app/${imageUrl}`;
         setGeneratedImageUrl(generatedUrl); // Set the URL of the generated image
 
         // // Fetch the generated image as Blob from the backend URL
