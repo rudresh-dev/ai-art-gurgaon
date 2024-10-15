@@ -226,8 +226,8 @@ const LineArtSelector = ({ onLineArtSelect }) => {
             className="line-art-boxes" // Set the clicked image as active
             style={{
               border:
-                activeIndex === index ? "3px solid #000" : "1px solid #fff",
-              background: activeIndex === index ? "#f0f0f0" : "transparent",
+                activeIndex === index ? "3px solid #FFFFFF" : "1px solid #fff",
+              background: activeIndex === index ? "#D12028" : "transparent",
               color: activeIndex === index ? "#000" : "#fff",
             }}
           >

@@ -78,55 +78,55 @@ const DrawingApp = () => {
 
 
 
-const fetchUserTrials = async () => {
-  if (!userId) return; // Ensure user is logged in
+  const fetchUserTrials = async () => {
+    if (!userId) return; // Ensure user is logged in
 
-  try {
-    const { data, error } = await supabase
-      .from("user_trials")
-      .select("trial_count")
-      .eq("user_id", userId) // Use the Clerk user ID here
-      .single();
-
-    if (error && error.code === "PGRST116") {
-      // No record found, so insert a new record with MAX_TRIALS
-      const { error: insertError } = await supabase
+    try {
+      const { data, error } = await supabase
         .from("user_trials")
-        .insert([{ user_id: userId, trial_count: MAX_TRIALS }]);
+        .select("trial_count")
+        .eq("user_id", userId) // Use the Clerk user ID here
+        .single();
 
-      if (insertError) {
-        console.error("Error inserting user trials:", insertError);
-        return;
+      if (error && error.code === "PGRST116") {
+        // No record found, so insert a new record with MAX_TRIALS
+        const { error: insertError } = await supabase
+          .from("user_trials")
+          .insert([{ user_id: userId, trial_count: MAX_TRIALS }]);
+
+        if (insertError) {
+          console.error("Error inserting user trials:", insertError);
+          return;
+        }
+
+        setRemainingTrials(MAX_TRIALS); // Initialize trials
+      } else if (data) {
+        setRemainingTrials(data.trial_count); // Fetch and set remaining trials
+      } else {
+        console.error("Error fetching trials:", error);
       }
-
-      setRemainingTrials(MAX_TRIALS); // Initialize trials
-    } else if (data) {
-      setRemainingTrials(data.trial_count); // Fetch and set remaining trials
-    } else {
-      console.error("Error fetching trials:", error);
+    } catch (err) {
+      console.error("Error fetching trials:", err);
     }
-  } catch (err) {
-    console.error("Error fetching trials:", err);
-  }
-};
+  };
 
 
-const updateUserTrials = async (newTrialCount) => {
-  if (!userId) return; // Ensure the user is logged in
+  const updateUserTrials = async (newTrialCount) => {
+    if (!userId) return; // Ensure the user is logged in
 
-  try {
-    const { error } = await supabase
-      .from("user_trials")
-      .update({ trial_count: newTrialCount })
-      .eq("user_id", userId); // Make sure to pass the correct userId
+    try {
+      const { error } = await supabase
+        .from("user_trials")
+        .update({ trial_count: newTrialCount })
+        .eq("user_id", userId); // Make sure to pass the correct userId
 
-    if (error) {
-      console.error("Error updating trials:", error);
+      if (error) {
+        console.error("Error updating trials:", error);
+      }
+    } catch (err) {
+      console.error("Error updating trials:", err);
     }
-  } catch (err) {
-    console.error("Error updating trials:", err);
-  }
-};
+  };
 
 
   // Mouse or touch events for canvas drawing
@@ -629,10 +629,10 @@ const updateUserTrials = async (newTrialCount) => {
             </div>
           ) : (
             <div className="mainContainer">
-              <h2 style={{ position:"absolute", top:"60px", right:"40px", color:"#fff" }}>Trials: {remainingTrials}</h2>
+              <h2 style={{ position: "absolute", top: "60px", right: "40px", color: "#fff" }}>Trials: {remainingTrials}</h2>
               <div className="mainLeft">
                 <div className="canvasContainer">
-                
+
                   <canvas
                     ref={imageCanvasRef}
                     width="1192"
@@ -716,9 +716,9 @@ const updateUserTrials = async (newTrialCount) => {
                         max="500"
                         value={
                           currentImageIndex !== null &&
-                          lineArtImages[currentImageIndex]
+                            lineArtImages[currentImageIndex]
                             ? lineArtImages[currentImageIndex]?.size?.width ||
-                              100
+                            100
                             : 100 // Default to 100 when no image is selected
                         }
                         onChange={handleResizeImage}
@@ -758,11 +758,11 @@ const updateUserTrials = async (newTrialCount) => {
                         style={{
                           border:
                             prompt === "Sunset with Mountains"
-                              ? "2px solid #000"
+                              ? "2px solid #fff"
                               : "1px solid #ccc",
                           backgroundColor:
                             prompt === "Sunset with Mountains"
-                              ? "#fff"
+                              ? "#D12028"
                               : "transparent",
                         }}
                       >
@@ -774,13 +774,13 @@ const updateUserTrials = async (newTrialCount) => {
                         className="selecttheme-bb"
                         style={{
                           border:
-                            prompt === "With Moons and Asteroids"
-                              ? "2px solid #000"
+                            prompt === "Space"
+                              ? "2px solid #fff"
                               : "1px solid #ccc",
 
                           backgroundColor:
-                            prompt === "With Moons and Asteroids"
-                              ? "#f0f0f0"
+                            prompt === "Space"
+                              ? "#D12028"
                               : "transparent",
                         }}
                       >
@@ -792,12 +792,12 @@ const updateUserTrials = async (newTrialCount) => {
                         className="selecttheme-aa"
                         style={{
                           border:
-                            prompt === "With a City Skyline"
-                              ? "2px solid #0F4ABA"
+                            prompt === "Automibile"
+                              ? "2px solid #fff"
                               : "1px solid #ccc",
                           backgroundColor:
-                            prompt === "With a City Skyline"
-                              ? "#f0f0f0"
+                            prompt === "Automibile"
+                              ? "#D12028"
                               : "transparent",
                         }}
                       >
@@ -808,12 +808,12 @@ const updateUserTrials = async (newTrialCount) => {
                         className="selecttheme-dd"
                         style={{
                           border:
-                            prompt === "In a Neon-lit Cityscape"
-                              ? "2px solid #000"
+                            prompt === "Animal"
+                              ? "2px solid #fff"
                               : "1px solid #ccc",
                           backgroundColor:
-                            prompt === "In a Neon-lit Cityscape"
-                              ? "#f0f0f0"
+                            prompt === "Animal"
+                              ? "#D12028"
                               : "transparent",
                         }}
                       >
@@ -869,7 +869,7 @@ const updateUserTrials = async (newTrialCount) => {
                       style={{
                         backgroundColor:
                           selectedStyle === "Fantasy Art"
-                            ? "#fff"
+                            ? "#D12028"
                             : "transparent", // Change color if selected
                         color:
                           selectedStyle === "Fantasy Art" ? "#000" : "#fff",
@@ -887,7 +887,7 @@ const updateUserTrials = async (newTrialCount) => {
                       style={{
                         backgroundColor:
                           selectedStyle === "Neon Punk"
-                            ? "#fff"
+                            ? "#D12028"
                             : "transparent",
                         color: selectedStyle === "Neon Punk" ? "#000" : "#fff",
                         transition: "background-color 0.3s ease", // Smooth background color transition
@@ -903,7 +903,7 @@ const updateUserTrials = async (newTrialCount) => {
                       style={{
                         backgroundColor:
                           selectedStyle === "Hyperrealism"
-                            ? "#fff"
+                            ? "#D12028"
                             : "transparent",
                         color:
                           selectedStyle === "Hyperrealism" ? "#000" : "#fff",
@@ -920,7 +920,7 @@ const updateUserTrials = async (newTrialCount) => {
                       style={{
                         backgroundColor:
                           selectedStyle === "Comic Book"
-                            ? "#fff"
+                            ? "#D12028"
                             : "transparent",
                         color: selectedStyle === "Comic Book" ? "#000" : "#fff",
                         transition: "background-color 0.3s ease", // Smooth background color transition
