@@ -243,7 +243,7 @@ input[type="range"]::-moz-range-thumb {
   left: 76;
   background-color: white;
   width: 1192px;
-  height: 650px;
+  height: 100%;
 }
 
 .canvasff {
@@ -251,7 +251,7 @@ input[type="range"]::-moz-range-thumb {
   z-index: 2;
   background-color: transparent;
   width: 1192px;
-  height: 650px;
+  height: 730px;
 }
 
 .mobileView {
@@ -544,10 +544,10 @@ input[type="range"]::-moz-range-thumb {
     height: 500px;
   }
 
-  .canvasgg {
+  /* .canvasgg {
     width: 500px;
     height: 500px;
-  }
+  } */
 
   .brushButton {
     width: 240px;
@@ -593,11 +593,11 @@ input[type="range"]::-moz-range-thumb {
     width: 750px;
     height: 450px;
   }
-
+/* 
   .canvasgg {
     width: 750px;
     height: 450px;
-  }
+  } */
 
   .brushButton {
     width: 350px;
@@ -761,10 +761,10 @@ input[type="range"]::-moz-range-thumb {
     height: 650px;
   }
 
-  .canvasgg {
+  /* .canvasgg {
     width: 900px;
     height: 650px;
-  }
+  } */
 
   .brushButton {
     width: 440px;
@@ -935,10 +935,10 @@ input[type="range"]::-moz-range-thumb {
     height: 650px;
   }
 
-  .canvasgg {
+  /* .canvasgg {
     width: 1050px;
     height: 650px;
-  }
+  } */
 
   .brushButton {
     width: 510px;
@@ -1334,7 +1334,7 @@ input[type="range"]::-moz-range-thumb {
     left: 76;
     background-color: white;
     width: 1192px;
-    height: 650px;
+    height: 100%;
   }
 
   .canvasff {
@@ -1342,7 +1342,7 @@ input[type="range"]::-moz-range-thumb {
     z-index: 2;
     background-color: transparent;
     width: 1192px;
-    height: 650px;
+    height: 730px;
   }
 
   .mobileView {
@@ -1707,17 +1707,26 @@ input[type="range"]::-moz-range-thumb {
   .mainLeft{
     justify-content: center;
   }
-  .canvasff{
+  /* .canvasff{
     width: 60vw;
     height: 60vh;
-  }
-  .canvasgg{
+  } */
+  /* .canvasgg{
     width: 60vw;
-    height: 60vh;
-  }
+    height: 100%;
+  } */
   .bothGContainer{
     width: 80vw;
     justify-content: center;
   }
 
+}
+
+.icon{
+margin-right: 15px;
+height: 40px;
+}
+
+.brushButton span{
+  font-size: 36px;
 }

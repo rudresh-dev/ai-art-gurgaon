@@ -416,7 +416,7 @@ const DrawingApp = () => {
 
         // Set the URLs in the context **before** navigating
         setCanvasDrawingUrl(canvasDrawingUrl);
-        console.log(canvasDrawingUrl,"canvas drawingggggggggg")
+        console.log(canvasDrawingUrl, "canvas drawingggggggggg")
 
         setUploadedImageUrl(supabaseUrl); // Update the image URL in the context
         console.log(supabaseUrl, "supabase urlllll")
@@ -693,7 +693,7 @@ const DrawingApp = () => {
                     style={{
                       position: "absolute",
                       top: "10px",
-                      left: "100px",
+                      right: "100px",
                       width: "100px", // Adjust the size as needed
                       zIndex: 10, // Make sure it appears above the canvases
                     }}
@@ -702,7 +702,6 @@ const DrawingApp = () => {
                   <canvas
                     ref={imageCanvasRef}
                     width="1192"
-                    height="795"
                     onMouseDown={(e) =>
                       handleImageDragStart(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
                     }
@@ -756,10 +755,15 @@ const DrawingApp = () => {
                   </div>
                   <div className="bothGContainer">
                     <button onClick={toggleEraser} className="brushButton">
-                      {eraserMode ? "Brush" : "Eraser"}
+                      <img
+                        src={eraserMode ? '/brush.svg' : '/erase.svg'}
+                        // alt={eraserMode ? 'Brush Icon' : 'Eraser Icon'}
+                        className="icon"
+                      />
+                      <span>{eraserMode ? 'Brush' : 'Eraser'}</span>
+
                     </button>
                     <button onClick={clearCanvas} className="resetButton">
-                      <img src="/public/e-icon.svg" alt="" />
                       <p>Reset</p>
                     </button>
                   </div>
@@ -829,6 +833,7 @@ const DrawingApp = () => {
                             prompt === "Sunset with Mountains"
                               ? "#D12028"
                               : "transparent",
+                          color: prompt === "Sunset with Mountains" ? "#fff" : "#000",
                         }}
                       >
                         Nature
@@ -847,6 +852,7 @@ const DrawingApp = () => {
                             prompt === "House"
                               ? "#D12028"
                               : "transparent",
+                          color: prompt === "House" ? "#fff" : "#000",
                         }}
                       >
                         House/Skyscraper
@@ -864,6 +870,8 @@ const DrawingApp = () => {
                             prompt === "Automibile"
                               ? "#D12028"
                               : "transparent",
+                          color: prompt === "Automibile" ? "#fff" : "#000",
+
                         }}
                       >
                         Automobile
@@ -880,6 +888,8 @@ const DrawingApp = () => {
                             prompt === "Anime"
                               ? "#D12028"
                               : "transparent",
+                          color: prompt === "Anime" ? "#fff" : "#000",
+
                         }}
                       >
                         Anime
@@ -937,7 +947,7 @@ const DrawingApp = () => {
                             ? "#D12028"
                             : "transparent", // Change color if selected
                         color:
-                          selectedStyle === "Fantasy Art" ? "#000" : "#fff",
+                          selectedStyle === "Fantasy Art" ? "#fff" : "#fff",
                         transition: "background-color 0.3s ease", // Smooth background color transition
                       }}
                       className="button-g-ryt"
@@ -954,7 +964,7 @@ const DrawingApp = () => {
                           selectedStyle === "Neon Punk"
                             ? "#D12028"
                             : "transparent",
-                        color: selectedStyle === "Neon Punk" ? "#000" : "#fff",
+                        color: selectedStyle === "Neon Punk" ? "#fff" : "#fff",
                         transition: "background-color 0.3s ease", // Smooth background color transition
                       }}
                     >
@@ -971,7 +981,7 @@ const DrawingApp = () => {
                             ? "#D12028"
                             : "transparent",
                         color:
-                          selectedStyle === "Hyperrealism" ? "#000" : "#fff",
+                          selectedStyle === "Hyperrealism" ? "#fff" : "#fff",
                         transition: "background-color 0.3s ease", // Smooth background color transition
                       }}
                     >
@@ -987,7 +997,7 @@ const DrawingApp = () => {
                           selectedStyle === "Comic Book"
                             ? "#D12028"
                             : "transparent",
-                        color: selectedStyle === "Comic Book" ? "#000" : "#fff",
+                        color: selectedStyle === "Comic Book" ? "#fff" : "#fff",
                         transition: "background-color 0.3s ease", // Smooth background color transition
                       }}
                     >

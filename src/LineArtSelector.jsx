@@ -228,7 +228,7 @@ const LineArtSelector = ({ onLineArtSelect }) => {
               border:
                 activeIndex === index ? "3px solid #FFFFFF" : "1px solid #fff",
               background: activeIndex === index ? "#D12028" : "transparent",
-              color: activeIndex === index ? "#000" : "#fff",
+              color: activeIndex === index ? "#fff" : "#fff",
             }}
           >
             <p>{lineArt.text}</p>
