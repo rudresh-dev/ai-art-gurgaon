@@ -177,9 +177,9 @@ const LineArtSelector = ({ onLineArtSelect }) => {
       text: "House",
       subImages: [
         { src: "/h1.svg", icon: "/hh1.svg", text: "Villa" },
-        { src: "/h2.svg", icon: "/hh2.svg", text: "Modern House" },
-        { src: "/h3.svg", icon: "/hh3.svg", text: "Old House" },
-        { src: "/h4.svg", icon: "/hh4.svg", text: "skyscraper" },
+        { src: "/h2.svg", icon: "/hh2.svg", text: "Mansion" },
+        { src: "/h3.svg", icon: "/hh3.svg", text: "Cottage" },
+        { src: "/h4.svg", icon: "/hh4.svg", text: "Skyscraper" },
       ],
     },
     {
