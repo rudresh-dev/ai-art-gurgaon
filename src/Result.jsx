@@ -92,7 +92,7 @@ const Result = () => {
           <div className="qr-code">
             <QRCodeCanvas value={uploadedImageUrl} size={256} />
           </div>
-          <button className="redraw-button" onClick={handleRedraw}>
+          <button className="redraw-button" onClick={handleRedraw} style={{ color: '#322554' }}>
             Redraw
           </button>
         </div>
