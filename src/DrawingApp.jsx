@@ -5,13 +5,13 @@ import LineArtSelector from "./LineArtSelector"; // Import the LineArtSelector c
 import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
 import Loading from "./Loading";
 import { ImageContext } from "../src/ImageContext";
-import { useUser } from "@clerk/clerk-react";
+// import { useUser } from "@clerk/clerk-react";
 const MAX_TRIALS = 3; // Maximum allowed trials
 
 const DrawingApp = () => {
-  const { user } = useUser(); // Fetch the user from Clerk
-  const userId = user?.id; // Get user ID from Clerk
-  console.log(userId)
+  // const { user } = useUser(); // Fetch the user from Clerk
+  // const userId = user?.id; // Get user ID from Clerk
+  // console.log(userId)
   const canvasRef = useRef(null); // Drawing canvas
   const imageCanvasRef = useRef(null); // Image canvas
 
@@ -46,11 +46,11 @@ const DrawingApp = () => {
   }, [lineArtImages]);
 
 
-  useEffect(() => {
-    if (userId) {
-      fetchUserTrials(); // Fetch trials when the user ID is available
-    }
-  }, [userId]);
+  // useEffect(() => {
+  //   if (userId) {
+  //     fetchUserTrials(); // Fetch trials when the user ID is available
+  //   }
+  // }, [userId]);
 
   useEffect(() => {
     updateFinalPrompt();
@@ -78,55 +78,55 @@ const DrawingApp = () => {
 
 
 
-  const fetchUserTrials = async () => {
-    if (!userId) return; // Ensure user is logged in
+  // const fetchUserTrials = async () => {
+  //   if (!userId) return; // Ensure user is logged in
 
-    try {
-      const { data, error } = await supabase
-        .from("user_trials")
-        .select("trial_count")
-        .eq("user_id", userId) // Use the Clerk user ID here
-        .single();
+  //   try {
+  //     const { data, error } = await supabase
+  //       .from("user_trials")
+  //       .select("trial_count")
+  //       .eq("user_id", userId) // Use the Clerk user ID here
+  //       .single();
 
-      if (error && error.code === "PGRST116") {
-        // No record found, so insert a new record with MAX_TRIALS
-        const { error: insertError } = await supabase
-          .from("user_trials")
-          .insert([{ user_id: userId, trial_count: MAX_TRIALS }]);
+  //     if (error && error.code === "PGRST116") {
+  //       // No record found, so insert a new record with MAX_TRIALS
+  //       const { error: insertError } = await supabase
+  //         .from("user_trials")
+  //         .insert([{ user_id: userId, trial_count: MAX_TRIALS }]);
 
-        if (insertError) {
-          console.error("Error inserting user trials:", insertError);
-          return;
-        }
+  //       if (insertError) {
+  //         console.error("Error inserting user trials:", insertError);
+  //         return;
+  //       }
 
-        setRemainingTrials(MAX_TRIALS); // Initialize trials
-      } else if (data) {
-        setRemainingTrials(data.trial_count); // Fetch and set remaining trials
-      } else {
-        console.error("Error fetching trials:", error);
-      }
-    } catch (err) {
-      console.error("Error fetching trials:", err);
-    }
-  };
+  //       setRemainingTrials(MAX_TRIALS); // Initialize trials
+  //     } else if (data) {
+  //       setRemainingTrials(data.trial_count); // Fetch and set remaining trials
+  //     } else {
+  //       console.error("Error fetching trials:", error);
+  //     }
+  //   } catch (err) {
+  //     console.error("Error fetching trials:", err);
+  //   }
+  // };
 
 
-  const updateUserTrials = async (newTrialCount) => {
-    if (!userId) return; // Ensure the user is logged in
+  // const updateUserTrials = async (newTrialCount) => {
+  //   if (!userId) return; // Ensure the user is logged in
 
-    try {
-      const { error } = await supabase
-        .from("user_trials")
-        .update({ trial_count: newTrialCount })
-        .eq("user_id", userId); // Make sure to pass the correct userId
+  //   try {
+  //     const { error } = await supabase
+  //       .from("user_trials")
+  //       .update({ trial_count: newTrialCount })
+  //       .eq("user_id", userId); // Make sure to pass the correct userId
 
-      if (error) {
-        console.error("Error updating trials:", error);
-      }
-    } catch (err) {
-      console.error("Error updating trials:", err);
-    }
-  };
+  //     if (error) {
+  //       console.error("Error updating trials:", error);
+  //     }
+  //   } catch (err) {
+  //     console.error("Error updating trials:", err);
+  //   }
+  // };
 
 
   // Mouse or touch events for canvas drawing
@@ -421,11 +421,11 @@ const DrawingApp = () => {
           console.log("Navigating to result page"); // Debugging before navigation
 
           // Deduct a trial after successful image generation
-          const newTrialCount = remainingTrials - 1;
-          setRemainingTrials(newTrialCount);
+          // const newTrialCount = remainingTrials - 1;
+          // setRemainingTrials(newTrialCount);
 
           // Update the remaining trials count in Supabase
-          await updateUserTrials(newTrialCount);
+          // await updateUserTrials(newTrialCount);
 
           navigate("/result", {
             state: { canvasDrawingUrl, uploadedImageUrl: supabaseUrl },
@@ -994,7 +994,7 @@ const DrawingApp = () => {
 
                 {/* Submit Button */}
                 <div className="fgrogf">
-                  <button onClick={handleSubmit} className="butoongft5" disabled={remainingTrials <= 0}>
+                  <button onClick={handleSubmit} className="butoongft5">
                     {loading ? "Generating..." : "Submit"}
                   </button>
                 </div>

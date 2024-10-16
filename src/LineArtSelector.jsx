@@ -218,7 +218,7 @@ const LineArtSelector = ({ onLineArtSelect }) => {
         SELECT SHAPES
       </h4>
       {/* Main Image Selector */}
-      <div  className="main-line-art-selector">
+      <div className="main-line-art-selector">
         {lineArtDivs.map((lineArt, index) => (
           <div
             key={index}
@@ -238,27 +238,23 @@ const LineArtSelector = ({ onLineArtSelect }) => {
 
       {/* Sub-Image Selector based on active main image */}
       <div
-      className="sub-lineart-image-selector"
+        className="sub-lineart-image-selector"
       >
         {lineArtDivs[activeIndex].subImages.map((subImage, subIndex) => (
-          <div className="main-sub-image-main-lineart">
+          <div key={subIndex} className="main-sub-image-main-lineart">
             <div
-              key={subIndex}
               onClick={() => onLineArtSelect(subImage)} // Pass the selected sub-image to the parent
               draggable="true"
-         
               className="linert-gg55op"
             >
-              {/* Show icon in div */}
               <img
                 src={subImage.icon}
                 alt={`Icon ${subIndex + 1}`}
                 className="inside-image-line-art"
               />
-              {/* Display text */}
             </div>
             <div>
-              <p style={{ fontSize: "12px", textAlign: "center", color:"white" }}>
+              <p style={{ fontSize: "12px", textAlign: "center", color: "white" }}>
                 {subImage.text}
               </p>
             </div>

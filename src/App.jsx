@@ -242,25 +242,27 @@ const App = () => {
                     <Route
                         path="/"
                         element={
-                            <SignedIn>
-                                {usesLeft > 0 ? (
-                                    <DrawingApp onUse={decrementUsage} />
-                                ) : (
-                                    <div>You have used up your access.</div>
-                                )}
-                            </SignedIn>
+                            // <SignedIn>
+                                // {usesLeft > 0 ? (
+                                    // <DrawingApp onUse={decrementUsage} />
+                                // ) : (
+                                    // <div>You have used up your access.</div>
+                                // )}
+                            // </SignedIn>
+                            <DrawingApp onUse={decrementUsage} />
                         }
                     />
                     <Route
                         path="/result"
                         element={
-                            <SignedIn>
-                                {usesLeft > 0 ? (
-                                    <Result onUse={decrementUsage} />
-                                ) : (
-                                    <div>You have used up your access.</div>
-                                )}
-                            </SignedIn>
+                            // // <SignedIn>
+                            //     // {usesLeft > 0 ? (
+                            //         <Result onUse={decrementUsage} />
+                            //     ) : (
+                            //         <div>You have used up your access.</div>
+                            //     )}
+                            // </SignedIn>
+                            <Result onUse={decrementUsage} />
                         }
                     />
                     <Route
