@@ -268,13 +268,13 @@ const App = () => {
                     <Route
                         path="/display"
                         element={
-                            <SignedIn>
-                                {usesLeft > 0 ? (
+                            // <SignedIn>
+                                // {usesLeft > 0 ? (
                                     <DisplayPage onUse={decrementUsage} />
-                                ) : (
-                                    <div>You have used up your access.</div>
-                                )}
-                            </SignedIn>
+                                // ) : (
+                                    // <div>You have used up your access.</div>
+                                // )}
+                            // </SignedIn>
                         }
                     />
                 </Routes>

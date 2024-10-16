@@ -4,12 +4,15 @@ import { ImageContext } from "../src/ImageContext"; // Import the context
 
 const DisplayPage = () => {
   const { canvasDrawingUrl, uploadedImageUrl } = useContext(ImageContext); // Access the context
+  console.log(uploadedImageUrl);
   const [imageUrl, setImageUrl] = useState(uploadedImageUrl);
+  console.log(canvasDrawingUrl,"image came to displayyyy")
 
   // Effect to listen to changes in the uploadedImageUrl
   useEffect(() => {
     if (uploadedImageUrl) {
       setImageUrl(uploadedImageUrl);
+      console.log("bhgvsugyuyg",uploadedImageUrl)
     }
   }, [uploadedImageUrl]);
 
@@ -29,3 +32,4 @@ const DisplayPage = () => {
 };
 
 export default DisplayPage;
+

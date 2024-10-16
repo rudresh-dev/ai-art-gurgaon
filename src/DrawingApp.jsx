@@ -36,6 +36,7 @@ const DrawingApp = () => {
   const [isMobileView, setIsMobileView] = useState(false); // Detect mobile view
   const handleStyleSelect = (style) => {
     setSelectedStyle(style); // Update the selected style
+    console.log(style)
   };
   const { setCanvasDrawingUrl, setUploadedImageUrl } = useContext(ImageContext); // Use the context to store image URLs
   const [remainingTrials, setRemainingTrials] = useState(MAX_TRIALS);
@@ -383,7 +384,8 @@ const DrawingApp = () => {
       }
       const formData = new FormData();
       formData.append("prompt", finalPrompt);
-      formData.append("style", style);
+      console.log(style);
+      formData.append("style", selectedStyle);
       formData.append("image", imageBlob, "drawing.png"); // Sending image as a binary Blob
 
       const response = await axios.post(
@@ -411,10 +413,14 @@ const DrawingApp = () => {
         // Upload the fetched image Blob to Supabase
         const supabaseUrl = await uploadToSupabase(generatedImageBlob);
 
+
         // Set the URLs in the context **before** navigating
         setCanvasDrawingUrl(canvasDrawingUrl);
+        console.log(canvasDrawingUrl,"canvas drawingggggggggg")
 
-        setUploadedImageUrl(supabaseUrl);
+        setUploadedImageUrl(supabaseUrl); // Update the image URL in the context
+        console.log(supabaseUrl, "supabase urlllll")
+
 
         if (supabaseUrl) {
           console.log("Image uploaded to Supabase, URL:", supabaseUrl); // Debugging
