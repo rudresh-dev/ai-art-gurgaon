@@ -453,11 +453,11 @@ const DrawingApp = () => {
     switch (selectedPrompt) {
       case "Sunset with Mountains":
         setSubPrompts([
-          "Sunset with Mountains",
-          "Blooming in a Meadow",
-          "Snow-capped Peaks at Dawn",
-          "River with Cascading Waterfalls",
-          "Sunset with reflections",
+          "A towering oak tree surrounded by a field of wildflowers",
+          "Autumn leaves falling from a tree by a tranquil river",
+          "A cherry blossom tree in full bloom under a clear blue sky",
+          "A mystical willow tree with hanging vines near a pond",
+          "A pine tree with snow-covered branches in a winter forest",
         ]);
         break;
       case "House":
