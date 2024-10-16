@@ -453,11 +453,11 @@ const DrawingApp = () => {
     switch (selectedPrompt) {
       case "Sunset with Mountains":
         setSubPrompts([
-          "Cottage Among Trees A small house surrounded by tall trees and blooming flowers with houses",
-          "A serene mountain landscape with a cozy cottage by the riverbank, surrounded by dense trees and wildflowers. Snow-capped peaks tower in the distance, with a gentle river flowing nearby. Animals like deer, rabbits, and birds are seen roaming freely, blending harmoniously with the natural surroundings.",
+          "A cottage surrounded by tall trees and blooming flowers.",
+          " A serene mountain scene with a cozy cottage by a river and wildlife.",
           "Road with Houses and Cars A suburban street lined with houses, classic cars, and trees.",
-          "Riverside House with Forest A house by a river, surrounded by dense pine trees and a wooden bridge.",
-          "Mountain Sunrise Majestic mountains with the sun rising, casting light on the hills and scattered trees."
+          "Riverside House: A house by a river, surrounded by pine trees and a wooden bridge.",
+          "Mountain Sunrise: Majestic mountains at sunrise, illuminating the hills and trees."
         ]);
         break;
       case "House":
@@ -702,6 +702,7 @@ const DrawingApp = () => {
                   <canvas
                     ref={imageCanvasRef}
                     width="1192"
+                    height="795"
                     onMouseDown={(e) =>
                       handleImageDragStart(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
                     }
