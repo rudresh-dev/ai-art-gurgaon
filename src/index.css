@@ -11,6 +11,19 @@
   overflow: hidden;
 }
 
+@font-face {
+  font-family: 'Regular'; /* Replace with your desired font family name */
+  src: url('/public/BreuerText.ttf') format('truetype'); /* Adjust the path as necessary */
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'bold'; /* Replace with your desired font family name */
+  src: url('/public/BreuerText\ Bold.ttf') format('truetype'); /* Adjust the path as necessary */
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   background-image: url("/bg22.png");
   background-color: #233F80;
@@ -19,7 +32,12 @@ body {
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
+  font-family: 'Regular', sans-serif; /* Apply the font family here */
+
+  
 }
+
+
 
 .mainContainer {
   display: flex;

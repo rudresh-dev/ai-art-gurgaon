@@ -229,6 +229,8 @@ const LineArtSelector = ({ onLineArtSelect }) => {
                 activeIndex === index ? "3px solid #FFFFFF" : "1px solid #fff",
               background: activeIndex === index ? "#D12028" : "transparent",
               color: activeIndex === index ? "#fff" : "#fff",
+              fontFamily: activeIndex === index ? "'bold', sans-serif" : "inherit", // Apply font only when active
+
             }}
           >
             <p>{lineArt.text}</p>

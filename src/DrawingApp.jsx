@@ -776,7 +776,7 @@ const DrawingApp = () => {
 
                 {/* Image Resize and Delete Controls */}
                 <div className="imageResize-container">
-                  <h3>ADJUST SIZE</h3>
+                  <h3>ADJUST SHAPE SIZE</h3>
                   <div className="imageResize-con">
                     <div className="imageResige-002">
                       <input
@@ -829,11 +829,15 @@ const DrawingApp = () => {
                             prompt === "Sunset with Mountains"
                               ? "2px solid #fff"
                               : "1px solid #ccc",
+
                           backgroundColor:
                             prompt === "Sunset with Mountains"
                               ? "#D12028"
                               : "transparent",
                           color: prompt === "Sunset with Mountains" ? "#fff" : "#000",
+
+
+
                         }}
                       >
                         Nature
