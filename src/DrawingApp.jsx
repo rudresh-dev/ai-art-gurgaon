@@ -453,11 +453,11 @@ const DrawingApp = () => {
     switch (selectedPrompt) {
       case "Sunset with Mountains":
         setSubPrompts([
-          "A towering oak tree surrounded by a field of wildflowers",
-          "Autumn leaves falling from a tree by a tranquil river",
-          "A cherry blossom tree in full bloom under a clear blue sky",
-          "A mystical willow tree with hanging vines near a pond",
-          "A pine tree with snow-covered branches in a winter forest",
+          "Cottage Among Trees A small house surrounded by tall trees and blooming flowers with houses",
+          "A serene mountain landscape with a cozy cottage by the riverbank, surrounded by dense trees and wildflowers. Snow-capped peaks tower in the distance, with a gentle river flowing nearby. Animals like deer, rabbits, and birds are seen roaming freely, blending harmoniously with the natural surroundings.",
+          "Road with Houses and Cars A suburban street lined with houses, classic cars, and trees.",
+          "Riverside House with Forest A house by a river, surrounded by dense pine trees and a wooden bridge.",
+          "Mountain Sunrise Majestic mountains with the sun rising, casting light on the hills and scattered trees."
         ]);
         break;
       case "House":
