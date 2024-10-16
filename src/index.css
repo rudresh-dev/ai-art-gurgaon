@@ -967,6 +967,10 @@ input[type="range"]::-moz-range-thumb {
     width: 510px;
     height: 60px;
   }
+  .selectShape{
+    color: white;
+    font-size: 20px;
+  }
 
   .downContainer {
     height: 200px;

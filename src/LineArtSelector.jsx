@@ -215,7 +215,7 @@ const LineArtSelector = ({ onLineArtSelect }) => {
   return (
     <div className="whole-line-art-g-container">
       <h4>
-        SELECT SHAPES
+        SELECT THEME
       </h4>
       {/* Main Image Selector */}
       <div className="main-line-art-selector">
@@ -234,9 +234,16 @@ const LineArtSelector = ({ onLineArtSelect }) => {
             }}
           >
             <p>{lineArt.text}</p>
+
           </div>
+          
         ))}
+
       </div>
+      <h1 className="selectShape">SELECT SHAPES</h1>
+
+
+
 
       {/* Sub-Image Selector based on active main image */}
       <div
