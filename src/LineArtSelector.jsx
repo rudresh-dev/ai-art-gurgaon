@@ -194,12 +194,12 @@ const LineArtSelector = ({ onLineArtSelect }) => {
     },
     {
       src: "/a4.p4ng",
-      text: "Anime",
+      text: "Infrastructure",
       subImages: [
-        { src: "/d11.svg", icon: "/dd1.svg", text: "Drinks" },
-        { src: "/d5.svg", icon: "/dd5.svg", text: "Katana" },
-        { src: "/aa2.svg", icon: "/d/d3.svg", text: "Tori Gate" },
-        { src: "/aa.png", icon: "/d/d4.svg", text: "Akatsuki" },
+        { src: "/highway.svg", icon: "/highway1.svg", text: "Highway"},
+        { src: "/metro.svg", icon: "/metro1.svg", text: "Metro" },
+        { src: "/crane.svg", icon: "/crane1.svg", text: "Crane" },
+        { src: "/bridge.svg", icon: "/bridge1.svg", text: "Bridge" },
       ],
     },
   ];
@@ -215,7 +215,7 @@ const LineArtSelector = ({ onLineArtSelect }) => {
   return (
     <div className="whole-line-art-g-container">
       <h4>
-        SELECT THEME
+        SELECT SHAPE
       </h4>
       {/* Main Image Selector */}
       <div className="main-line-art-selector">

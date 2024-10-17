@@ -32,7 +32,7 @@ const DrawingApp = () => {
   const [isDraggingImage, setIsDraggingImage] = useState(false); // Image drag state
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 }); // Offset for dragging
   const [currentImageIndex, setCurrentImageIndex] = useState(null); // Track which image is being dragged or resized
-  const [selectedStyle, setSelectedStyle] = useState("Fantasy Art"); // Track the selected style
+  const [selectedStyle, setSelectedStyle] = useState("Neon Punk"); // Track the selected style
   const [isMobileView, setIsMobileView] = useState(false); // Detect mobile view
   const handleStyleSelect = (style) => {
     setSelectedStyle(style); // Update the selected style
@@ -458,33 +458,34 @@ const DrawingApp = () => {
           "Road with Houses and Cars A suburban street lined with houses, classic cars, and trees.",
           "Riverside House: A house by a river, surrounded by pine trees and a wooden bridge.",
           "Mountain Sunrise: Majestic mountains at sunrise, illuminating the hills and trees."
+
         ]);
         break;
       case "House":
         setSubPrompts([
-          "Modern House on a Cliffside",
-          "Cottage in a Misty Forest",
-          "Luxury Mansion by the Beach",
-          "Skyscraper in a Busy Metropolis",
-          "Skyscraper Piercing through the Clouds",
+          "Modern house on a cliffside",
+          "Cottage in a misty forest",
+          "Luxury mansion by the beach",
+          "Skyscraper in a busy metropolis",
+          "Skyscraper piercing through the clouds",
         ]);
         break;
       case "Automibile":
         setSubPrompts([
-          "With a City Skyline",
+          "With a city skyline",
           "Racing on a track",
-          "With a Mountain Backdrop",
-          "In a Rustic Farmyard",
-          "Racing Through Urban Streets",
+          "With a mountain backdrop",
+          "In a rustic farmyard",
+          "Racing through urban streets",
         ]);
         break;
-      case "Anime":
+      case "Infrastructure":
         setSubPrompts([
-          "In a Neon-lit Cityscape",
-          "Battle in a Fantasy World",
-          "With Futuristic Vehicles",
-          "At a Lantern Festival",
-          "Hero with a Magic Sword",
+          "A modern train bridge spanning over a river with a cityscape in the background.",
+          "An urban metro station bustling with commuters boarding and exiting trains.",
+"A busy construction site with workers, cranes, and unfinished buildings.",
+"A city skyline featuring metro tracks weaving between tall buildings.",
+"A train bridge under construction, surrounded by scaffolding and heavy machinery."
         ]);
         break;
       default:
@@ -818,7 +819,7 @@ const DrawingApp = () => {
                           color: prompt === "House" ? "#fff" : "#000",
                         }}
                       >
-                        House/Skyscraper
+                        House
                       </div>
 
                       <div
@@ -840,22 +841,22 @@ const DrawingApp = () => {
                         Automobile
                       </div>
                       <div
-                        onClick={() => handlePromptSelect("Anime")}
+                        onClick={() => handlePromptSelect("Infrastructure")}
                         className="selecttheme-dd"
                         style={{
                           border:
-                            prompt === "Anime"
+                            prompt === "Infrastructure"
                               ? "2px solid #fff"
                               : "1px solid #ccc",
                           backgroundColor:
-                            prompt === "Anime"
+                            prompt === "Infrastructure"
                               ? "#D12028"
                               : "transparent",
-                          color: prompt === "Anime" ? "#fff" : "#000",
+                          color: prompt === "Infrastructure" ? "#fff" : "#000",
 
                         }}
                       >
-                        Anime
+                        Infrastructure 
                       </div>
                     </div>
                   </div>
@@ -898,9 +899,43 @@ const DrawingApp = () => {
                 </div>
 
                 <div className="whole-style-container">
-                  <h2>SELECT STYLE</h2>
+                  <h2>SELECT ART STYLE</h2>
 
                   <div className="style-container">
+                    {/* Style Button 2 */}
+                    <button
+                      className="button-f-ryt"
+                      onClick={() => handleStyleSelect("Neon Punk")}
+                      style={{
+                        backgroundColor:
+                          selectedStyle === "Neon Punk"
+                            ? "#D12028"
+                            : "transparent",
+                        color: selectedStyle === "Neon Punk" ? "#fff" : "#fff",
+                        transition: "background-color 0.3s ease", // Smooth background color transition
+                      }}
+                    >
+                      Neon Punk
+                    </button>
+
+                             {/* Style Button 3 */}
+                             <button
+                      onClick={() => handleStyleSelect("Hyperrealism")}
+                      className="button-w-ryt"
+                      style={{
+                        backgroundColor:
+                          selectedStyle === "Hyperrealism"
+                            ? "#D12028"
+                            : "transparent",
+                        color:
+                          selectedStyle === "Hyperrealism" ? "#fff" : "#fff",
+                        transition: "background-color 0.3s ease", // Smooth background color transition
+                      }}
+                    >
+                      Hyperrealism
+                    </button>
+
+
                     {/* Style Button 1 */}
                     <button
                       onClick={() => handleStyleSelect("Fantasy Art")}
@@ -918,38 +953,9 @@ const DrawingApp = () => {
                       Fantasy Art
                     </button>
 
-                    {/* Style Button 2 */}
-                    <button
-                      className="button-f-ryt"
-                      onClick={() => handleStyleSelect("Neon Punk")}
-                      style={{
-                        backgroundColor:
-                          selectedStyle === "Neon Punk"
-                            ? "#D12028"
-                            : "transparent",
-                        color: selectedStyle === "Neon Punk" ? "#fff" : "#fff",
-                        transition: "background-color 0.3s ease", // Smooth background color transition
-                      }}
-                    >
-                      Neon Punk
-                    </button>
+                    
 
-                    {/* Style Button 3 */}
-                    <button
-                      onClick={() => handleStyleSelect("Hyperrealism")}
-                      className="button-w-ryt"
-                      style={{
-                        backgroundColor:
-                          selectedStyle === "Hyperrealism"
-                            ? "#D12028"
-                            : "transparent",
-                        color:
-                          selectedStyle === "Hyperrealism" ? "#fff" : "#fff",
-                        transition: "background-color 0.3s ease", // Smooth background color transition
-                      }}
-                    >
-                      Hyperrealism
-                    </button>
+           
 
                     {/* Style Button 4 */}
                     <button
