@@ -360,7 +360,7 @@ input[type="range"]::-moz-range-thumb {
   align-items: center;
   justify-content: center;
   height: 40px;
-  width: 129px;
+  width: 132px;
   text-align: center;
   border-top-left-radius: 8px;
   cursor: pointer;
@@ -372,7 +372,7 @@ input[type="range"]::-moz-range-thumb {
   align-items: center;
   justify-content: center;
   height: 40px;
-  width: 129px;
+  width: 132px;
   text-align: center;
   border-radius: 0px;
   cursor: pointer;
@@ -384,7 +384,7 @@ input[type="range"]::-moz-range-thumb {
   align-items: center;
   justify-content: center;
   height: 40px;
-  width: 129px;
+  width: 132px;
   text-align: center;
   border-radius: 0px;
   cursor: pointer;
@@ -396,7 +396,7 @@ input[type="range"]::-moz-range-thumb {
   align-items: center;
   justify-content: center;
   height: 40px;
-  width: 129px;
+  width: 132px;
   text-align: center;
   border-top-right-radius: 8px;
   cursor: pointer;
@@ -1455,7 +1455,7 @@ input[type="range"]::-moz-range-thumb {
     align-items: center;
     justify-content: center;
     height: 40px;
-    width: 129px;
+    width: 138px;
     text-align: center;
     border-top-left-radius: 8px;
     cursor: pointer;
@@ -1467,7 +1467,7 @@ input[type="range"]::-moz-range-thumb {
     align-items: center;
     justify-content: center;
     height: 40px;
-    width: 129px;
+    width: 138px;
     text-align: center;
     border-radius: 0px;
     cursor: pointer;
@@ -1479,7 +1479,7 @@ input[type="range"]::-moz-range-thumb {
     align-items: center;
     justify-content: center;
     height: 40px;
-    width: 129px;
+    width: 138px;
     text-align: center;
     border-radius: 0px;
     cursor: pointer;
@@ -1491,7 +1491,7 @@ input[type="range"]::-moz-range-thumb {
     align-items: center;
     justify-content: center;
     height: 40px;
-    width: 129px;
+    width: 139px;
     text-align: center;
     border-top-right-radius: 8px;
     cursor: pointer;
