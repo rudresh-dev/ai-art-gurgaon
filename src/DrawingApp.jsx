@@ -772,49 +772,10 @@ const DrawingApp = () => {
               </div>
 
               <div className="mainRight">
-                {/* Line Art Selector */}
-                <LineArtSelector onLineArtSelect={handleLineArtSelect} />
 
-                {/* Image Resize and Delete Controls */}
-                <div className="imageResize-container">
-                  <h3>ADJUST SHAPE SIZE</h3>
-                  <div className="imageResize-con">
-                    <div className="imageResige-002">
-                      <input
-                        type="range"
-                        min="50"
-                        max="500"
-                        value={
-                          currentImageIndex !== null &&
-                            lineArtImages[currentImageIndex]
-                            ? lineArtImages[currentImageIndex]?.size?.width ||
-                            100
-                            : 100 // Default to 100 when no image is selected
-                        }
-                        onChange={handleResizeImage}
-                        disabled={
-                          currentImageIndex === null ||
-                          !lineArtImages[currentImageIndex]
-                        } // Disable the input when no image is selected
-                      />
-                    </div>
-                    <div className="deletegg77">
-                      <button
-                        className="buttonGG-rf"
-                        onClick={handleDeleteImage}
-                        disabled={
-                          currentImageIndex === null ||
-                          !lineArtImages[currentImageIndex]
-                        } // Disable the button when no image is selected
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </div>
 
-                <div className="clasgg-55"></div>
-                {/* Prompt Selection */}
+
+
                 <h2 className="clasgg-h2">SELECT THEME</h2>
                 <div className="mainthemcont">
                   <div>
@@ -836,9 +797,6 @@ const DrawingApp = () => {
                               ? "#D12028"
                               : "transparent",
                           color: prompt === "Sunset with Mountains" ? "#fff" : "#000",
-
-
-
                         }}
                       >
                         Nature
@@ -940,7 +898,7 @@ const DrawingApp = () => {
                 </div>
 
                 <div className="whole-style-container">
-                  <h2>SELECT STYLE:</h2>
+                  <h2>SELECT STYLE</h2>
 
                   <div className="style-container">
                     {/* Style Button 1 */}
@@ -1009,7 +967,53 @@ const DrawingApp = () => {
                       Comic Book
                     </button>
                   </div>
+
                 </div>
+                
+                <div className="clasgg-55"></div>
+                {/* Line Art Selector */}
+
+                <LineArtSelector onLineArtSelect={handleLineArtSelect} />
+
+                {/* Image Resize and Delete Controls */}
+                <div className="imageResize-container">
+                  <h3>ADJUST SHAPE SIZE</h3>
+                  <div className="imageResize-con">
+                    <div className="imageResige-002">
+                      <input
+                        type="range"
+                        min="50"
+                        max="500"
+                        value={
+                          currentImageIndex !== null &&
+                            lineArtImages[currentImageIndex]
+                            ? lineArtImages[currentImageIndex]?.size?.width ||
+                            100
+                            : 100 // Default to 100 when no image is selected
+                        }
+                        onChange={handleResizeImage}
+                        disabled={
+                          currentImageIndex === null ||
+                          !lineArtImages[currentImageIndex]
+                        } // Disable the input when no image is selected
+                      />
+                    </div>
+                    <div className="deletegg77">
+                      <button
+                        className="buttonGG-rf"
+                        onClick={handleDeleteImage}
+                        disabled={
+                          currentImageIndex === null ||
+                          !lineArtImages[currentImageIndex]
+                        } // Disable the button when no image is selected
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                
 
                 <div className="closedfgg"></div>
 

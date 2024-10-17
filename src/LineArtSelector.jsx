@@ -240,7 +240,7 @@ const LineArtSelector = ({ onLineArtSelect }) => {
         ))}
 
       </div>
-      <h1 className="selectShape">SELECT SHAPES</h1>
+      {/* <h1 className="selectShape">SELECT SHAPES</h1> */}
 
 
 
