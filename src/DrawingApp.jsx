@@ -332,7 +332,7 @@ const DrawingApp = () => {
       return null;
     }
 
-    const publicURL = `https://mxyippuwkpysdexmxrbm.supabase.co/storage/v1/object/public/images/gurgaon/${fileName}`;
+    const publicURL = `https://ixdvhtnzvbnbxmtkqyxe.supabase.co/storage/v1/object/public/images/gurgaon/${fileName}`;
     const { error: insertError } = await supabase
       .from("images")
       .insert([{ url: publicURL }]);
