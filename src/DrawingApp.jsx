@@ -284,6 +284,7 @@ const DrawingApp = () => {
     const { error: insertError } = await supabase
       .from("images")
       .insert([{ url: publicURL }]);
+      console.log("images inserted ",url)
 
     if (insertError) {
       console.error("Insert error:", insertError);
