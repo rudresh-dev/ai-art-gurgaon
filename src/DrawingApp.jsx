@@ -269,8 +269,8 @@ const DrawingApp = () => {
   const uploadToSupabase = async (blob) => {
     const fileName = `generated_${Date.now()}.png`; // Unique file name
     const { data, error } = await supabase.storage
-      .from("images/gurgaon") // Ensure this is your bucket name
-      .upload(fileName, blob, {
+      .from("images") // Ensure this is your bucket name
+      .upload(`gurgaon/${fileName}`, blob,  {
         cacheControl: "3600",
         upsert: false,
       });
