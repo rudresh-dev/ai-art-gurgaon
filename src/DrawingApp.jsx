@@ -78,58 +78,6 @@ const DrawingApp = () => {
 
 
 
-
-  // const fetchUserTrials = async () => {
-  //   if (!userId) return; // Ensure user is logged in
-
-  //   try {
-  //     const { data, error } = await supabase
-  //       .from("user_trials")
-  //       .select("trial_count")
-  //       .eq("user_id", userId) // Use the Clerk user ID here
-  //       .single();
-
-  //     if (error && error.code === "PGRST116") {
-  //       // No record found, so insert a new record with MAX_TRIALS
-  //       const { error: insertError } = await supabase
-  //         .from("user_trials")
-  //         .insert([{ user_id: userId, trial_count: MAX_TRIALS }]);
-
-  //       if (insertError) {
-  //         console.error("Error inserting user trials:", insertError);
-  //         return;
-  //       }
-
-  //       setRemainingTrials(MAX_TRIALS); // Initialize trials
-  //     } else if (data) {
-  //       setRemainingTrials(data.trial_count); // Fetch and set remaining trials
-  //     } else {
-  //       console.error("Error fetching trials:", error);
-  //     }
-  //   } catch (err) {
-  //     console.error("Error fetching trials:", err);
-  //   }
-  // };
-
-
-  // const updateUserTrials = async (newTrialCount) => {
-  //   if (!userId) return; // Ensure the user is logged in
-
-  //   try {
-  //     const { error } = await supabase
-  //       .from("user_trials")
-  //       .update({ trial_count: newTrialCount })
-  //       .eq("user_id", userId); // Make sure to pass the correct userId
-
-  //     if (error) {
-  //       console.error("Error updating trials:", error);
-  //     }
-  //   } catch (err) {
-  //     console.error("Error updating trials:", err);
-  //   }
-  // };
-
-
   // Mouse or touch events for canvas drawing
   const startDrawing = (x, y) => {
     if (isDraggingImage) return;
@@ -332,7 +280,7 @@ const DrawingApp = () => {
       return null;
     }
 
-    const publicURL = `https://ixdvhtnzvbnbxmtkqyxe.supabase.co/storage/v1/object/public/images/gurgaon/${fileName}`;
+    const publicURL = `https://vogewdoilqaqjlshdzue.supabase.co/storage/v1/object/public/images/gurgaon/${fileName}`;
     const { error: insertError } = await supabase
       .from("images")
       .insert([{ url: publicURL }]);
@@ -483,9 +431,9 @@ const DrawingApp = () => {
         setSubPrompts([
           "A modern train bridge spanning over a river with a cityscape in the background.",
           "An urban metro station bustling with commuters boarding and exiting trains.",
-"A busy construction site with workers, cranes, and unfinished buildings.",
-"A city skyline featuring metro tracks weaving between tall buildings.",
-"A train bridge under construction, surrounded by scaffolding and heavy machinery."
+          "A busy construction site with workers, cranes, and unfinished buildings.",
+          "A city skyline featuring metro tracks weaving between tall buildings.",
+          "A train bridge under construction, surrounded by scaffolding and heavy machinery."
         ]);
         break;
       default:
@@ -638,53 +586,7 @@ const DrawingApp = () => {
             <div className="mainContainer">
               {/* <h2 style={{ position: "absolute", top: "60px", right: "40px", color: "#fff" }}>Trials: {remainingTrials}</h2> */}
               <div className="mainLeft">
-                {/* <div className="canvasContainer">
-
-                  <canvas
-                    ref={imageCanvasRef}
-                    width="1192"
-                    height="795"
-                    onMouseDown={(e) =>
-                      handleImageDragStart(
-                        e.nativeEvent.offsetX,
-                        e.nativeEvent.offsetY
-                      )
-                    }
-                    onMouseMove={handleMouseMoveImage}
-                    onMouseUp={handleMouseUpImage}
-                    className="canvasgg"
-                  ></canvas>
-                  <canvas
-                    ref={canvasRef}
-                    onMouseDown={(e) => {
-                      handleMouseDown(e);
-                      handleMouseDownImage(e);
-                    }}
-                    onMouseMove={(e) => {
-                      handleMouseMove(e);
-                      handleMouseMoveImage(e);
-                    }}
-                    onMouseUp={() => {
-                      handleMouseUp();
-                      handleMouseUpImage();
-                    }}
-                    onTouchStart={(e) => {
-                      handleTouchStart(e);
-                      handleTouchStartImage(e);
-                    }}
-                    onTouchMove={(e) => {
-                      handleTouchMove(e);
-                      handleTouchMoveImage(e);
-                    }}
-                    onTouchEnd={() => {
-                      handleTouchEnd();
-                      handleTouchEndImage();
-                    }}
-                    className="canvasff"
-                    width="1192"
-                    height="795"
-                  ></canvas>
-                </div> */}
+              
 
                 <div className="canvasContainer" style={{ position: "relative" }}>
                   {/* Logo Image */}
@@ -856,7 +758,7 @@ const DrawingApp = () => {
 
                         }}
                       >
-                        Infrastructure 
+                        Infrastructure
                       </div>
                     </div>
                   </div>
@@ -918,8 +820,8 @@ const DrawingApp = () => {
                       Neon Punk
                     </button>
 
-                             {/* Style Button 3 */}
-                             <button
+                    {/* Style Button 3 */}
+                    <button
                       onClick={() => handleStyleSelect("Hyperrealism")}
                       className="button-w-ryt"
                       style={{
@@ -953,9 +855,9 @@ const DrawingApp = () => {
                       Fantasy Art
                     </button>
 
-                    
 
-           
+
+
 
                     {/* Style Button 4 */}
                     <button
@@ -975,7 +877,7 @@ const DrawingApp = () => {
                   </div>
 
                 </div>
-                
+
                 <div className="clasgg-55"></div>
                 {/* Line Art Selector */}
 
@@ -1019,7 +921,7 @@ const DrawingApp = () => {
                   </div>
                 </div>
 
-                
+
 
                 <div className="closedfgg"></div>
 
