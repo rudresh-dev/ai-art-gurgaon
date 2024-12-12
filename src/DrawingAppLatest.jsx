@@ -724,7 +724,7 @@
 //               <h2 style={{ position:"absolute", top:"60px", right:"40px", color:"red" }}>Remaining Trials: {remainingTrials}</h2>
 //               <div className="mainLeft">
 //                 <div className="canvasContainer">
-                
+
 //                   <canvas
 //                     ref={imageCanvasRef}
 //                     width="1192"
@@ -1432,7 +1432,7 @@ const DrawingApp = () => {
       formData.append("image", imageBlob, "drawing.png"); // Sending image as a binary Blob
 
       const response = await axios.post(
-        "https://king-prawn-app-js4z2.ondigitalocean.app/generate-image/",
+        "https://walrus-app-cfdn6.ondigitalocean.app/generate-image/",
         formData,
         {
           headers: {
@@ -1447,7 +1447,7 @@ const DrawingApp = () => {
         // Ensure the imageUrl has the correct format
         const generatedUrl = imageUrl.startsWith("http")
           ? imageUrl
-          : `https://king-prawn-app-js4z2.ondigitalocean.app/${imageUrl}`;
+          : `https://walrus-app-cfdn6.ondigitalocean.app/${imageUrl}`;
         setGeneratedImageUrl(generatedUrl); // Set the URL of the generated image
 
         // Fetch the generated image as Blob from the backend URL

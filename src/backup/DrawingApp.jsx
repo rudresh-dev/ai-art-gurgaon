@@ -172,8 +172,8 @@ const DrawingApp = () => {
   };
 
 
-   // Clear both canvases
-   const clearCanvas = () => {
+  // Clear both canvases
+  const clearCanvas = () => {
     const drawingCanvas = canvasRef.current;
     const drawingContext = drawingCanvas.getContext("2d");
     const imageCanvas = imageCanvasRef.current;
@@ -188,14 +188,14 @@ const DrawingApp = () => {
 
 
   // Add this function to merge both canvases
-const mergeCanvases = () => {
-  const imageCanvas = imageCanvasRef.current;
-  const drawingCanvas = canvasRef.current;
-  const drawingContext = drawingCanvas.getContext("2d");
+  const mergeCanvases = () => {
+    const imageCanvas = imageCanvasRef.current;
+    const drawingCanvas = canvasRef.current;
+    const drawingContext = drawingCanvas.getContext("2d");
 
-  // Draw the imageCanvas content onto the drawingCanvas
-  drawingContext.drawImage(imageCanvas, 0, 0);
-};
+    // Draw the imageCanvas content onto the drawingCanvas
+    drawingContext.drawImage(imageCanvas, 0, 0);
+  };
 
   // Convert canvas to Blob
   const canvasToBlob = async () => {
@@ -271,7 +271,7 @@ const mergeCanvases = () => {
       formData.append("image", imageBlob, "drawing.png"); // Sending image as a binary Blob
 
       const response = await axios.post(
-        "https://king-prawn-app-js4z2.ondigitalocean.app/generate-image/",
+        "https://walrus-app-cfdn6.ondigitalocean.app/generate-image/",
         formData,
         {
           headers: {
@@ -286,7 +286,7 @@ const mergeCanvases = () => {
         // Ensure the imageUrl has the correct format
         const generatedUrl = imageUrl.startsWith("http")
           ? imageUrl
-          : `https://king-prawn-app-js4z2.ondigitalocean.app/${imageUrl}`;
+          : `https://walrus-app-cfdn6.ondigitalocean.app/${imageUrl}`;
         setGeneratedImageUrl(generatedUrl); // Set the URL of the generated image
 
         // Fetch the generated image as Blob from the backend URL
@@ -381,8 +381,8 @@ const mergeCanvases = () => {
     setEraserMode(!eraserMode);
   };
 
-   // Line art selection and placement
-   const handleLineArtSelect = (lineArt) => {
+  // Line art selection and placement
+  const handleLineArtSelect = (lineArt) => {
     const canvas = imageCanvasRef.current;
     const canvasWidth = canvas.width;
     const canvasHeight = canvas.height;
@@ -400,8 +400,8 @@ const mergeCanvases = () => {
     setLineArtImages([...lineArtImages, newLineArt]);
   };
 
-   // Draw all line art images on the image canvas
-   const drawAllImages = () => {
+  // Draw all line art images on the image canvas
+  const drawAllImages = () => {
     const canvas = imageCanvasRef.current;
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -481,7 +481,7 @@ const mergeCanvases = () => {
 
   return (
     <>
-      {loading && ( 
+      {loading && (
         <div>
           <video
             src="02.mp4"
@@ -501,21 +501,21 @@ const mergeCanvases = () => {
               <div className="mainLeft">
                 <div className="canvasContainer">
 
-                <canvas
-                  ref={imageCanvasRef}
-                  width="1192"
-                  height="650"
-                  onMouseDown={(e) => handleImageDragStart(e.nativeEvent.offsetX, e.nativeEvent.offsetY)}
-                  onMouseMove={handleMouseMoveImage}
-                  onMouseUp={handleMouseUpImage}
-                  style={{
-                    position: "absolute",
-                    zIndex: 1, // Lower z-index to be below drawing
-                    top: 0,
-                    left: 76,
-                    backgroundColor:"white"
-                  }}
-                ></canvas>
+                  <canvas
+                    ref={imageCanvasRef}
+                    width="1192"
+                    height="650"
+                    onMouseDown={(e) => handleImageDragStart(e.nativeEvent.offsetX, e.nativeEvent.offsetY)}
+                    onMouseMove={handleMouseMoveImage}
+                    onMouseUp={handleMouseUpImage}
+                    style={{
+                      position: "absolute",
+                      zIndex: 1, // Lower z-index to be below drawing
+                      top: 0,
+                      left: 76,
+                      backgroundColor: "white"
+                    }}
+                  ></canvas>
                   <canvas
                     ref={canvasRef}
                     onMouseDown={(e) => {
@@ -546,10 +546,10 @@ const mergeCanvases = () => {
                     height="650"
                     style={{
                       border: "1px solid black",
-                      zIndex:2,
-               // Transparent background
-                      backgroundColor:"transparent"
-                        // backgroundColor:"red"
+                      zIndex: 2,
+                      // Transparent background
+                      backgroundColor: "transparent"
+                      // backgroundColor:"red"
                     }}
                   ></canvas>
                 </div>
@@ -617,17 +617,17 @@ const mergeCanvases = () => {
                         height: "100%",
                       }}
                     >
-                       
+
                       <input
-                     
+
                         type="range"
                         min="50"
                         max="500"
                         value={
                           currentImageIndex !== null &&
-                          lineArtImages[currentImageIndex]
+                            lineArtImages[currentImageIndex]
                             ? lineArtImages[currentImageIndex]?.size?.width ||
-                              100
+                            100
                             : 100 // Default to 100 when no image is selected
                         }
                         onChange={handleResizeImage}
