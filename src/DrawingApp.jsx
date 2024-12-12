@@ -354,6 +354,9 @@ const DrawingApp = () => {
         const generatedUrl = imageUrl.startsWith("http")
           ? imageUrl
           : `https://walrus-app-cfdn6.ondigitalocean.app/${imageUrl}`;
+
+
+        console.log(generatedUrl, "generatedURL");
         setGeneratedImageUrl(generatedUrl); // Set the URL of the generated image
 
         // Fetch the generated image as Blob from the backend URL
