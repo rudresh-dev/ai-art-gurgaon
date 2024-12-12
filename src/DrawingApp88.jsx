@@ -58,7 +58,7 @@ const DrawingApp = () => {
 
     if (error) return null;
 
-    const publicURL = `https://mxyippuwkpysdexmxrbm.supabase.co/storage/v1/object/public/images/gurgaon/${fileName}`;
+    const publicURL = `https://dvomtdfgsaposxyigjbw.supabase.co/storage/v1/object/public/images/gurgaon/${fileName}`;
     return publicURL;
   };
 
