@@ -12,13 +12,13 @@
 }
 
 @font-face {
-  font-family: 'Regular'; /* Replace with your desired font family name */
+  font-family: 'Regular';
   src: url('/public/BreuerText.ttf') format('truetype'); /* Adjust the path as necessary */
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: 'bold'; /* Replace with your desired font family name */
+  font-family: 'bold'; 
   src: url('/public/BreuerText\ Bold.ttf') format('truetype'); /* Adjust the path as necessary */
   font-weight: normal;
   font-style: normal;
@@ -26,7 +26,7 @@
 
 body {
   background-image: url("/bg22.png");
-  background-color: #233F80;
+  /* background-color: #233F80; */
   background-size: cover;
   width: 100vw;
   height: 100vh;
@@ -44,7 +44,7 @@ body {
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  /* background-image: url("/bg33.png"); */
+  background-image: url("/bg22.png");
   /* background-color: palevioletred; */
   background-position: center;
   background-repeat: no-repeat;
@@ -126,14 +126,14 @@ canvas {
   border-radius: 10px;
   font-size: 20px;
   font-weight: 700;
-  color: #D12028;
+  color: #322554;
 
   background: rgb(255, 255, 255);
   /* background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.26) 50%, rgba(255,255,255,0.3) 100%); */
 }
 
 .resetButton {
-  background-color: #8210bc;
+  background-color: #322554;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -145,13 +145,7 @@ canvas {
   font-size: 20px;
   font-weight: 700;
   color: white;
-  background: rgb(255, 255, 255);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0.26) 50%,
-    rgba(255, 255, 255, 0.3) 100%
-  );
+
 }
 
 .whole-style-container {
@@ -471,7 +465,7 @@ input[type="range"]::-moz-range-thumb {
   margin-top: 1px;
   border-radius: 16px;
   border: none;
-  color: #ffffff;
+  color: #322554;
 }
 
 .butoongft5 {
@@ -481,8 +475,8 @@ input[type="range"]::-moz-range-thumb {
   border: none;
   font-size: 25px;
   font-weight: 600;
-  color: #ffffff;
-  background-color: #D12028;
+  color: #322554;
+  background-color: #A9B3D5;
 }
 
 .whole-line-art-g-container {
@@ -1226,14 +1220,14 @@ input[type="range"]::-moz-range-thumb {
     border-radius: 10px;
     font-size: 20px;
     font-weight: 700;
-    color: #D12028;
+    color: #322554;
 
     background: rgb(255, 255, 255);
     /* background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.26) 50%, rgba(255,255,255,0.3) 100%); */
   }
 
   .resetButton {
-    background-color: #8210bc;
+    background-color: #322554;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1245,15 +1239,8 @@ input[type="range"]::-moz-range-thumb {
     font-size: 20px;
     font-weight: 700;
     color: white;
-    background: rgb(255, 255, 255);
-    /* background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 0.26) 50%,
-      rgba(255, 255, 255, 0.3) 100%
-    ); */
 
-    background-color: transparent;
+
   }
 
   .whole-style-container {
@@ -1313,8 +1300,8 @@ input[type="range"]::-moz-range-thumb {
     width: 15px;
     background-color: #fff;
     border-radius: 50%;
-    border: 2px solid #D12028;
-    box-shadow: -500px 0 0 500px #D12028;
+    border: 2px solid #322554;
+    box-shadow: -500px 0 0 500px #322554;
   }
 
 
@@ -1323,8 +1310,8 @@ input[type="range"]::-moz-range-thumb {
     width: 15px;
     background-color: #fff;
     border-radius: 50%;
-    border: 1px solid #D12028;
-    box-shadow: -500px 0 0 500px #D12028;
+    border: 1px solid #322554;
+    box-shadow: -500px 0 0 500px #322554;
   }
 
   .wrapper {
@@ -1576,7 +1563,7 @@ input[type="range"]::-moz-range-thumb {
     border: none;
     font-size: 25px;
     font-weight: 600;
-    color: #ffff;
+    color: #322554;
   }
 
   .whole-line-art-g-container {
@@ -1641,19 +1628,19 @@ input[type="range"]::-moz-range-thumb {
   }
 
   .whole-line-art-g-container h4 {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .imageResize-container h3 {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .clasgg-h2 {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .whole-style-container h2 {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .bothGContainer{

@@ -280,7 +280,7 @@ const DrawingApp = () => {
       return null;
     }
 
-    const publicURL = `https://dvomtdfgsaposxyigjbw.supabase.co/storage/v1/object/public/images/gurgaon/${fileName}`;
+    const publicURL = `https://fuhqxfbyvrklxggecynt.supabase.co/storage/v1/object/public/images/gurgaon/${fileName}`;
     const { error: insertError } = await supabase
       .from("images")
       .insert([{ url: publicURL }]);
@@ -338,7 +338,7 @@ const DrawingApp = () => {
       formData.append("image", imageBlob, "drawing.png"); // Sending image as a binary Blob
 
       const response = await axios.post(
-        "https://walrus-app-cfdn6.ondigitalocean.app/generate-image/",
+        "http://127.0.0.1:5000/generate-image/",
         formData,
         {
           headers: {
@@ -353,7 +353,7 @@ const DrawingApp = () => {
         // Ensure the imageUrl has the correct format
         const generatedUrl = imageUrl.startsWith("http")
           ? imageUrl
-          : `https://walrus-app-cfdn6.ondigitalocean.app/${imageUrl}`;
+          : `http://127.0.0.1:5000/${imageUrl}`;
 
 
         console.log(generatedUrl, "generatedURL");
@@ -405,6 +405,12 @@ const DrawingApp = () => {
     switch (selectedPrompt) {
       case "Sunset with Mountains":
         setSubPrompts([
+  //         "A woman in a flowing white dress walking through a misty forest, with fireflies glowing around her.",
+  // "A woman standing on a balcony at night, gazing at the glowing city skyline with a cup of coffee in her hands.",
+  // "A woman in a long dress walking barefoot on golden sand dunes as the sun sets behind her.",
+  // "A woman wrapped in a cozy scarf, standing in the middle of a snowy forest, watching the snowfall.",
+  // "A woman with long, wind-blown hair standing by the ocean, looking at the waves crashing against the rocks.",
+  // "A woman sitting under a large oak tree in a meadow, deeply engrossed in a book.",
           "A cottage surrounded by tall trees and blooming flowers.",
           " A serene mountain scene with a cozy cottage by a river and wildlife.",
           "Road with Houses and Cars A suburban street lined with houses, classic cars, and trees.",
@@ -681,8 +687,58 @@ const DrawingApp = () => {
               <div className="mainRight">
 
 
+              <LineArtSelector onLineArtSelect={handleLineArtSelect} />
+
+                 {/* Image Resize and Delete Controls */}
+                 <div className="imageResize-container">
+                  <h3>ADJUST SHAPE SIZE</h3>
+                  <div className="imageResize-con">
+                    <div className="imageResige-002">
+                      <input
+                        type="range"
+                        min="50"
+                        max="500"
+                        value={
+                          currentImageIndex !== null &&
+                            lineArtImages[currentImageIndex]
+                            ? lineArtImages[currentImageIndex]?.size?.width ||
+                            100
+                            : 100 
+                        }
+                        onChange={handleResizeImage}
+                        disabled={
+                          currentImageIndex === null ||
+                          !lineArtImages[currentImageIndex]
+                        } // Disable the input when no image is selected
+                      />
+                    </div>
+                    <div className="deletegg77">
+                      <button
+                        className="buttonGG-rf"
+                        onClick={handleDeleteImage}
+                        disabled={
+                          currentImageIndex === null ||
+                          !lineArtImages[currentImageIndex]
+                        } // Disable the button when no image is selected
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
 
 
+
+               
+
+                <div className="clasgg-55"></div>
+                {/* Line Art Selector */}
+
+
+
+
+
+                
                 <h2 className="clasgg-h2">SELECT THEME</h2>
                 <div className="mainthemcont">
                   <div>
@@ -694,16 +750,17 @@ const DrawingApp = () => {
                         }
                         className="selecttheme-cc"
                         style={{
-                          border:
+                          borderBottom:
                             prompt === "Sunset with Mountains"
                               ? "2px solid #fff"
-                              : "1px solid #ccc",
+                              : "3px solid #504C9C",
 
                           backgroundColor:
                             prompt === "Sunset with Mountains"
-                              ? "#D12028"
+                              ? "#B1BDDC"
                               : "transparent",
                           color: prompt === "Sunset with Mountains" ? "#fff" : "#000",
+                          borderBottom:"3px solid #504C9C"
                         }}
                       >
                         Nature
@@ -713,16 +770,17 @@ const DrawingApp = () => {
                         onClick={() => handlePromptSelect("House")}
                         className="selecttheme-bb"
                         style={{
-                          border:
+                          borderBottom:
                             prompt === "House"
                               ? "2px solid #fff"
-                              : "1px solid #ccc",
+                              : "3px solid #504C9C",
 
                           backgroundColor:
                             prompt === "House"
-                              ? "#D12028"
+                              ? "#B1BDDC"
                               : "transparent",
                           color: prompt === "House" ? "#fff" : "#000",
+                          borderBottom:"3px solid #504C9C"
                         }}
                       >
                         House
@@ -732,15 +790,16 @@ const DrawingApp = () => {
                         onClick={() => handlePromptSelect("Automibile")}
                         className="selecttheme-aa"
                         style={{
-                          border:
+                          borderBottom:
                             prompt === "Automibile"
                               ? "2px solid #fff"
-                              : "1px solid #ccc",
+                              : "3px solid #504C9C",
                           backgroundColor:
                             prompt === "Automibile"
-                              ? "#D12028"
+                              ? "#B1BDDC"
                               : "transparent",
                           color: prompt === "Automibile" ? "#fff" : "#000",
+                          borderBottom:"3px solid #504C9C"
 
                         }}
                       >
@@ -750,15 +809,16 @@ const DrawingApp = () => {
                         onClick={() => handlePromptSelect("Infrastructure")}
                         className="selecttheme-dd"
                         style={{
-                          border:
+                          borderBottom:
                             prompt === "Infrastructure"
                               ? "2px solid #fff"
-                              : "1px solid #ccc",
+                              : "3px solid #504C9C",
                           backgroundColor:
                             prompt === "Infrastructure"
-                              ? "#D12028"
+                              ? "#B1BDDC"
                               : "transparent",
                           color: prompt === "Infrastructure" ? "#fff" : "#000",
+                          borderBottom:"3px solid #504C9C"
 
                         }}
                       >
@@ -766,6 +826,8 @@ const DrawingApp = () => {
                       </div>
                     </div>
                   </div>
+
+                  
 
                   {/* Show more options based on selected prompt */}
                   {subPrompts.length > 0 && (
@@ -803,7 +865,6 @@ const DrawingApp = () => {
                     </div>
                   )}
                 </div>
-
                 <div className="whole-style-container">
                   <h2>SELECT ART STYLE</h2>
 
@@ -815,7 +876,7 @@ const DrawingApp = () => {
                       style={{
                         backgroundColor:
                           selectedStyle === "Neon Punk"
-                            ? "#D12028"
+                            ? "#504C9C"
                             : "transparent",
                         color: selectedStyle === "Neon Punk" ? "#fff" : "#fff",
                         transition: "background-color 0.3s ease", // Smooth background color transition
@@ -832,7 +893,7 @@ const DrawingApp = () => {
                         backgroundColor:
                           selectedStyle === "Hyperrealism"
                             ? "#D12028"
-                            : "transparent",
+                            : "#322554",
                         color:
                           selectedStyle === "Hyperrealism" ? "#fff" : "#fff",
                         transition: "background-color 0.3s ease", // Smooth background color transition
@@ -849,7 +910,7 @@ const DrawingApp = () => {
                         backgroundColor:
                           selectedStyle === "Fantasy Art"
                             ? "#D12028"
-                            : "transparent", // Change color if selected
+                            : "#322554", // Change color if selected
                         color:
                           selectedStyle === "Fantasy Art" ? "#fff" : "#fff",
                         transition: "background-color 0.3s ease", // Smooth background color transition
@@ -871,7 +932,7 @@ const DrawingApp = () => {
                         backgroundColor:
                           selectedStyle === "Comic Book"
                             ? "#D12028"
-                            : "transparent",
+                            : "#322554",
                         color: selectedStyle === "Comic Book" ? "#fff" : "#fff",
                         transition: "background-color 0.3s ease", // Smooth background color transition
                       }}
@@ -881,49 +942,7 @@ const DrawingApp = () => {
                   </div>
 
                 </div>
-
-                <div className="clasgg-55"></div>
-                {/* Line Art Selector */}
-
-                <LineArtSelector onLineArtSelect={handleLineArtSelect} />
-
-                {/* Image Resize and Delete Controls */}
-                <div className="imageResize-container">
-                  <h3>ADJUST SHAPE SIZE</h3>
-                  <div className="imageResize-con">
-                    <div className="imageResige-002">
-                      <input
-                        type="range"
-                        min="50"
-                        max="500"
-                        value={
-                          currentImageIndex !== null &&
-                            lineArtImages[currentImageIndex]
-                            ? lineArtImages[currentImageIndex]?.size?.width ||
-                            100
-                            : 100 // Default to 100 when no image is selected
-                        }
-                        onChange={handleResizeImage}
-                        disabled={
-                          currentImageIndex === null ||
-                          !lineArtImages[currentImageIndex]
-                        } // Disable the input when no image is selected
-                      />
-                    </div>
-                    <div className="deletegg77">
-                      <button
-                        className="buttonGG-rf"
-                        onClick={handleDeleteImage}
-                        disabled={
-                          currentImageIndex === null ||
-                          !lineArtImages[currentImageIndex]
-                        } // Disable the button when no image is selected
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </div>
+             
 
 
 
@@ -932,7 +951,7 @@ const DrawingApp = () => {
                 {/* Submit Button */}
                 <div className="fgrogf">
                   <button onClick={handleSubmit} className="butoongft5">
-                    {loading ? "Generating..." : "Submit"}
+                    {loading ? "Generating..." : "Generate"}
                   </button>
                 </div>
               </div>

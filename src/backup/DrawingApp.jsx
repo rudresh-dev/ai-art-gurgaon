@@ -227,7 +227,7 @@ const DrawingApp = () => {
       return null;
     }
 
-    const publicURL = `https://dvomtdfgsaposxyigjbw.supabase.co/storage/v1/object/public/images/gurgaon/${fileName}`;
+    const publicURL = `https://fuhqxfbyvrklxggecynt.supabase.co/storage/v1/object/public/images/gurgaon/${fileName}`;
     const { error: insertError } = await supabase
       .from("images")
       .insert([{ url: publicURL }]);
@@ -271,7 +271,7 @@ const DrawingApp = () => {
       formData.append("image", imageBlob, "drawing.png"); // Sending image as a binary Blob
 
       const response = await axios.post(
-        "https://walrus-app-cfdn6.ondigitalocean.app/generate-image/",
+        "http://127.0.0.1:5000/generate-image/",
         formData,
         {
           headers: {
@@ -286,7 +286,7 @@ const DrawingApp = () => {
         // Ensure the imageUrl has the correct format
         const generatedUrl = imageUrl.startsWith("http")
           ? imageUrl
-          : `https://walrus-app-cfdn6.ondigitalocean.app/${imageUrl}`;
+          : `http://127.0.0.1:5000/${imageUrl}`;
         setGeneratedImageUrl(generatedUrl); // Set the URL of the generated image
 
         // Fetch the generated image as Blob from the backend URL
