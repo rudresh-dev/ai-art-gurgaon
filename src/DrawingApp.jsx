@@ -338,7 +338,7 @@ const DrawingApp = () => {
       formData.append("image", imageBlob, "drawing.png"); // Sending image as a binary Blob
 
       const response = await axios.post(
-        "http://127.0.0.1:5000/generate-image/",
+        "https://clownfish-app-hyvay.ondigitalocean.app/generate-image/",
         formData,
         {
           headers: {
@@ -353,7 +353,7 @@ const DrawingApp = () => {
         // Ensure the imageUrl has the correct format
         const generatedUrl = imageUrl.startsWith("http")
           ? imageUrl
-          : `http://127.0.0.1:5000/${imageUrl}`;
+          : `https://clownfish-app-hyvay.ondigitalocean.app/${imageUrl}`;
 
 
         console.log(generatedUrl, "generatedURL");
@@ -405,12 +405,12 @@ const DrawingApp = () => {
     switch (selectedPrompt) {
       case "Sunset with Mountains":
         setSubPrompts([
-  //         "A woman in a flowing white dress walking through a misty forest, with fireflies glowing around her.",
-  // "A woman standing on a balcony at night, gazing at the glowing city skyline with a cup of coffee in her hands.",
-  // "A woman in a long dress walking barefoot on golden sand dunes as the sun sets behind her.",
-  // "A woman wrapped in a cozy scarf, standing in the middle of a snowy forest, watching the snowfall.",
-  // "A woman with long, wind-blown hair standing by the ocean, looking at the waves crashing against the rocks.",
-  // "A woman sitting under a large oak tree in a meadow, deeply engrossed in a book.",
+          //         "A woman in a flowing white dress walking through a misty forest, with fireflies glowing around her.",
+          // "A woman standing on a balcony at night, gazing at the glowing city skyline with a cup of coffee in her hands.",
+          // "A woman in a long dress walking barefoot on golden sand dunes as the sun sets behind her.",
+          // "A woman wrapped in a cozy scarf, standing in the middle of a snowy forest, watching the snowfall.",
+          // "A woman with long, wind-blown hair standing by the ocean, looking at the waves crashing against the rocks.",
+          // "A woman sitting under a large oak tree in a meadow, deeply engrossed in a book.",
           "A cottage surrounded by tall trees and blooming flowers.",
           " A serene mountain scene with a cozy cottage by a river and wildlife.",
           "Road with Houses and Cars A suburban street lined with houses, classic cars, and trees.",
@@ -687,10 +687,10 @@ const DrawingApp = () => {
               <div className="mainRight">
 
 
-              <LineArtSelector onLineArtSelect={handleLineArtSelect} />
+                <LineArtSelector onLineArtSelect={handleLineArtSelect} />
 
-                 {/* Image Resize and Delete Controls */}
-                 <div className="imageResize-container">
+                {/* Image Resize and Delete Controls */}
+                <div className="imageResize-container">
                   <h3>ADJUST SHAPE SIZE</h3>
                   <div className="imageResize-con">
                     <div className="imageResige-002">
@@ -703,7 +703,7 @@ const DrawingApp = () => {
                             lineArtImages[currentImageIndex]
                             ? lineArtImages[currentImageIndex]?.size?.width ||
                             100
-                            : 100 
+                            : 100
                         }
                         onChange={handleResizeImage}
                         disabled={
@@ -729,7 +729,7 @@ const DrawingApp = () => {
 
 
 
-               
+
 
                 <div className="clasgg-55"></div>
                 {/* Line Art Selector */}
@@ -738,7 +738,7 @@ const DrawingApp = () => {
 
 
 
-                
+
                 <h2 className="clasgg-h2">SELECT THEME</h2>
                 <div className="mainthemcont">
                   <div>
@@ -760,7 +760,7 @@ const DrawingApp = () => {
                               ? "#B1BDDC"
                               : "transparent",
                           color: prompt === "Sunset with Mountains" ? "#fff" : "#000",
-                          borderBottom:"3px solid #504C9C"
+                          borderBottom: "3px solid #504C9C"
                         }}
                       >
                         Nature
@@ -780,7 +780,7 @@ const DrawingApp = () => {
                               ? "#B1BDDC"
                               : "transparent",
                           color: prompt === "House" ? "#fff" : "#000",
-                          borderBottom:"3px solid #504C9C"
+                          borderBottom: "3px solid #504C9C"
                         }}
                       >
                         House
@@ -799,7 +799,7 @@ const DrawingApp = () => {
                               ? "#B1BDDC"
                               : "transparent",
                           color: prompt === "Automibile" ? "#fff" : "#000",
-                          borderBottom:"3px solid #504C9C"
+                          borderBottom: "3px solid #504C9C"
 
                         }}
                       >
@@ -818,7 +818,7 @@ const DrawingApp = () => {
                               ? "#B1BDDC"
                               : "transparent",
                           color: prompt === "Infrastructure" ? "#fff" : "#000",
-                          borderBottom:"3px solid #504C9C"
+                          borderBottom: "3px solid #504C9C"
 
                         }}
                       >
@@ -827,7 +827,7 @@ const DrawingApp = () => {
                     </div>
                   </div>
 
-                  
+
 
                   {/* Show more options based on selected prompt */}
                   {subPrompts.length > 0 && (
@@ -874,10 +874,7 @@ const DrawingApp = () => {
                       className="button-f-ryt"
                       onClick={() => handleStyleSelect("Neon Punk")}
                       style={{
-                        backgroundColor:
-                          selectedStyle === "Neon Punk"
-                            ? "#504C9C"
-                            : "transparent",
+                        backgroundColor: selectedStyle === "Neon Punk" ? "#504C9C" : "#322554",
                         color: selectedStyle === "Neon Punk" ? "#fff" : "#fff",
                         transition: "background-color 0.3s ease", // Smooth background color transition
                       }}
@@ -890,29 +887,20 @@ const DrawingApp = () => {
                       onClick={() => handleStyleSelect("Hyperrealism")}
                       className="button-w-ryt"
                       style={{
-                        backgroundColor:
-                          selectedStyle === "Hyperrealism"
-                            ? "#D12028"
-                            : "#322554",
-                        color:
-                          selectedStyle === "Hyperrealism" ? "#fff" : "#fff",
+                        backgroundColor: selectedStyle === "Hyperrealism" ? "#504C9C" : "#322554",
+                        color: selectedStyle === "Hyperrealism" ? "#fff" : "#fff",
                         transition: "background-color 0.3s ease", // Smooth background color transition
                       }}
                     >
                       Hyperrealism
                     </button>
 
-
                     {/* Style Button 1 */}
                     <button
                       onClick={() => handleStyleSelect("Fantasy Art")}
                       style={{
-                        backgroundColor:
-                          selectedStyle === "Fantasy Art"
-                            ? "#D12028"
-                            : "#322554", // Change color if selected
-                        color:
-                          selectedStyle === "Fantasy Art" ? "#fff" : "#fff",
+                        backgroundColor: selectedStyle === "Fantasy Art" ? "#504C9C" : "#322554", // Change color if selected
+                        color: selectedStyle === "Fantasy Art" ? "#fff" : "#fff",
                         transition: "background-color 0.3s ease", // Smooth background color transition
                       }}
                       className="button-g-ryt"
@@ -920,19 +908,12 @@ const DrawingApp = () => {
                       Fantasy Art
                     </button>
 
-
-
-
-
                     {/* Style Button 4 */}
                     <button
                       onClick={() => handleStyleSelect("Comic Book")}
                       className="button-q-ryt"
                       style={{
-                        backgroundColor:
-                          selectedStyle === "Comic Book"
-                            ? "#D12028"
-                            : "#322554",
+                        backgroundColor: selectedStyle === "Comic Book" ? "#504C9C" : "#322554",
                         color: selectedStyle === "Comic Book" ? "#fff" : "#fff",
                         transition: "background-color 0.3s ease", // Smooth background color transition
                       }}
@@ -940,9 +921,8 @@ const DrawingApp = () => {
                       Comic Book
                     </button>
                   </div>
-
                 </div>
-             
+
 
 
 

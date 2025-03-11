@@ -302,8 +302,8 @@ const LineArtSelector = ({ onLineArtSelect }) => {
         { src: "/dd/a2.svg", icon: "/d/a2.svg", text: "Pasture" },
         { src: "/dd/a3.svg", icon: "/d/a3.svg", text: "Leaf" },
         { src: "/dd/a4.svg", icon: "/d/a4.svg", text: "Flower" },
-        { src: "/dd/a5.svg", icon: "/dd/a5.svg", text: "Bush" },
-        { src: "/dd/a6.svg", icon: "/dd/a6.svg", text: "Mountain" },
+        { src: "/dd/a5.svg", icon: "/d/a5.svg", text: "Bush" },
+        { src: "/dd/a6.svg", icon: "/d/a6.svg", text: "Mountain" },
       ],
     },
     {
@@ -326,8 +326,8 @@ const LineArtSelector = ({ onLineArtSelect }) => {
         { src: "/dd/c2.svg", icon: "/d/c2.svg", text: "Ship" },
         { src: "/dd/c3.svg", icon: "/d/c3.svg", text: "Aeroplane" },
         { src: "/dd/c4.svg", icon: "/d/c4.svg", text: "Bus" },
-        { src: "/dd/c5.svg", icon: "/d/c5.svg", text: "Bike" },
-        { src: "/dd/c6.svg", icon: "/d/c6.svg", text: "Truck" },
+        { src: "/dd/c5.svg", icon: "/d/c5.svg", text: "Truck" },
+        { src: "/dd/c6.svg", icon: "/d/c6.svg", text: "Tractor" },
       ],
     },
     {
@@ -338,8 +338,8 @@ const LineArtSelector = ({ onLineArtSelect }) => {
         { src: "/metro.svg", icon: "/metro1.svg", text: "Metro" },
         { src: "/crane.svg", icon: "/crane1.svg", text: "Crane" },
         { src: "/bridge.svg", icon: "/bridge1.svg", text: "Bridge" },
-        { src: "/tower.svg", icon: "/tower1.svg", text: "Tower" },
-        { src: "/dam.svg", icon: "/dam1.svg", text: "Dam" },
+        { src: "/port.svg", icon: "/port1.svg", text: "Port" },
+        { src: "/airport.svg", icon: "/airport1.svg", text: "Airport" },
       ],
     },
   ];
@@ -382,7 +382,25 @@ const LineArtSelector = ({ onLineArtSelect }) => {
         ))}
       </div>
       <div className="sub-lineart-image-selector">
-        {subImageIndex > 0 && <button onClick={handlePrev}>&lt;</button>}
+        {subImageIndex > 0 && (
+          <button
+            onClick={handlePrev}
+            style={{
+              backgroundImage: 'url("/left.png")',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              border: 'none',
+              outline: 'none',
+              width: '20px',
+              height: '30px',
+              marginTop: '-28px', // Move the button up
+              backgroundColor: 'transparent',
+            }}
+          >
+            &lt;
+          </button>
+        )}
         {lineArtDivs[activeIndex].subImages
           .slice(subImageIndex, subImageIndex + visibleSubImages)
           .map((subImage, subIndex) => (
@@ -394,7 +412,23 @@ const LineArtSelector = ({ onLineArtSelect }) => {
             </div>
           ))}
         {subImageIndex + visibleSubImages < lineArtDivs[activeIndex].subImages.length && (
-          <button onClick={handleNext}>&gt;</button>
+          <button
+            onClick={handleNext}
+            style={{
+              backgroundImage: 'url("/right.png")',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              border: 'none',
+              width: '20px',
+              height: '30px',
+              marginTop: '-28px', // Move the button up
+              backgroundColor: 'transparent',
+              marginRight: '40px',
+            }}
+          >
+            &gt;
+          </button>
         )}
       </div>
     </div>
